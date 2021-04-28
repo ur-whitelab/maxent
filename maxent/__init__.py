@@ -1,10 +1,8 @@
-"""maxentep - Maximum Entropy Epidemiology"""
+"""maxent - Maximum Entropy"""
 
 __version__ = '0.1'
-__author__ = 'Mehrad Ansari <Mehrad.ansari@rochester.edu>'
+__author__ = 'Mehrad Ansari <Mehrad.ansari@rochester.edu>, Rainier Barrett <rainier.barrett@gmail.com>, Andrew White <andrew.white@rochester.edu>'
 __all__ = []
 
 from .utils import *
-from .SIR_model import SIRModel
-from .metapop_model import *
-from .maxent import *
+from .core import *
