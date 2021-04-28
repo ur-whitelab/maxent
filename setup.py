@@ -27,7 +27,8 @@ setup(
 
     packages=find_packages(exclude=('tests',)),
 
-    install_requires=['numpy', 'matplotlib', 'tensorflow', 'tqdm'],
+    install_requires=['numpy', 'matplotlib',
+                      'tensorflow', 'tensorflow_probability', 'tqdm'],
 
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
