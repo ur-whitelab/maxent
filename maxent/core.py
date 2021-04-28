@@ -6,44 +6,30 @@ EPS = np.finfo(np.float32).tiny
 
 
 class Prior:
+    '''Prior distribution for expected deviation from target for restraint'''
     def expected(self, l):
+        '''Returns expected disagreement'''
         raise NotImplementedError()
-
-    def expected_grad(self, l):
-        raise NotImplementedError()
-
-    def log_denom(self, l):
-        raise NotImplementedError()
-
 
 class EmptyPrior(Prior):
+    '''No prior deviation from target for restraint (exact agreement)'''
     def expected(self, l):
         return 0.0
 
-    def expected_grad(self, l):
-        return 0.0
-
-    def log_denom(self, l):
-        return 0.0
-
-
 class Laplace(Prior):
+    '''Laplace distribution prior expected deviation from target for restraint'''
     def __init__(self, sigma):
+        '''Parameter for Laplace prior - higher means more allowable disagreement'''
         self.sigma = sigma
 
     def expected(self, l):
         return -1. * l * self.sigma**2 / (1. - l**2 * self.sigma**2 / 2)
 
-    def expected_grad(self, l):
-        return (1.5 - 1./(l**2 * self.sigma**2))
-
-    def log_denom(self, l):
-        # cap it to stop stupid stuff
-        return np.log(max(1e-8, 1. / (l + np.sqrt(2)/self.sigma) + 1. / (np.sqrt(2)/self.sigma - l)))
-
-
 class Restraint:
+    '''Restraint - includes function, target, and prior belief in deviation from target'''
     def __init__(self, fxn, target, prior):
+        '''fxn is callable that returns scalar, target is desired scalar value, and prior
+        is a distribution for expected deviation from that target'''
         self.target = target
         self.fxn = fxn
         self.prior = prior
@@ -53,6 +39,7 @@ class Restraint:
 
 
 class AvgLayerLaplace(tf.keras.layers.Layer):
+    '''Layer that returns reweighted expected value for observations'''
     def __init__(self, reweight_layer):
         super(AvgLayerLaplace, self).__init__()
         if type(reweight_layer) != ReweightLayerLaplace:
@@ -70,6 +57,7 @@ class AvgLayerLaplace(tf.keras.layers.Layer):
 
 
 class ReweightLayerLaplace(tf.keras.layers.Layer):
+    '''Trainable layer containing weights for maxent method'''
     def __init__(self, sigmas):
         super(ReweightLayerLaplace, self).__init__()
         l_init = tf.random_uniform_initializer(-1, 1)
@@ -106,6 +94,7 @@ class ReweightLayerLaplace(tf.keras.layers.Layer):
 
 
 class AvgLayer(tf.keras.layers.Layer):
+    '''Layer that returns reweighted expected value for observations'''
     def __init__(self, reweight_layer):
         super(AvgLayer, self).__init__()
         if type(reweight_layer) != ReweightLayer:
@@ -119,6 +108,7 @@ class AvgLayer(tf.keras.layers.Layer):
 
 
 class ReweightLayer(tf.keras.layers.Layer):
+    '''Trainable layer containing weights for maxent method'''
     def __init__(self, restraint_dim):
         super(ReweightLayer, self).__init__()
         l_init = tf.zeros_initializer()
@@ -142,7 +132,6 @@ class ReweightLayer(tf.keras.layers.Layer):
             name='weight-entropy')
         return weights
 
-
 def _compute_restraints(trajs, restraints):
     N = trajs.shape[0]
     K = len(restraints)
@@ -151,33 +140,9 @@ def _compute_restraints(trajs, restraints):
         gk[i, :] = [r(trajs[i]) for r in restraints]
     return gk
 
-
-class RefErrorMetric(tf.keras.metrics.Metric):
-    def __init__(self, ref_traj, population_fraction=None, **kwargs):
-        super(RefErrorMetric, self).__init__(name='ref-error-metric', **kwargs)
-        if type(ref_traj) is np.ndarray:
-            ref_traj = tf.convert_to_tensor(ref_traj, 'float32')
-        self.ref_traj = ref_traj
-        self.error = self.add_weight(name='ref-error', initializer='zeros')
-        self.population_fraction = population_fraction
-
-    def update_state(self, trajs, weights, sample_weight=None):
-        mean_traj = tf.reduce_sum(
-            trajs * weights[:, tf.newaxis, tf.newaxis, tf.newaxis], axis=0)
-        diff = (mean_traj - self.ref_traj)**2
-        patch_mean_diff = tf.reduce_mean(tf.reduce_sum(
-            diff * self.population_fraction[tf.newaxis, :, tf.newaxis], axis=1))
-        self.error.assign(patch_mean_diff)
-
-    def result(self):
-        return self.error
-
-    def reset_states(self):
-        self.error.assign(0.)
-
-
 class MaxentModel(tf.keras.Model):
-    def __init__(self, restraints, use_cov=False, name='maxent-model', ref_traj=None, trajs=None, population_fraction=None, ** kwargs):
+    '''Keras Maximum entropy model'''
+    def __init__(self, restraints, name='maxent-model', **kwargs):
         super(MaxentModel, self).__init__(name=name, **kwargs)
         self.restraints = restraints
         self.trajs = trajs
@@ -198,19 +163,6 @@ class MaxentModel(tf.keras.Model):
             self.avg_layer = AvgLayer(self.weight_layer)
         self.lambdas = self.weight_layer.l
         self.prior = prior
-        if ref_traj is not None:
-            self.ref_traj = ref_traj
-            if population_fraction is not None:
-                self.population_fraction = population_fraction
-            else:
-                print(
-                    'No input for population fraction. Assuming equal distribution of population in all patches.')
-                self.population_fraction = 1 / \
-                    ref_traj.shape[2]*np.ones(ref_traj.shape[2])
-            self.traj_metric = RefErrorMetric(
-                ref_traj, population_fraction=population_fraction)
-        else:
-            self.traj_metric = None
 
     def reset_weights(self):
         w = self.weight_layer.get_weights()
@@ -223,22 +175,17 @@ class MaxentModel(tf.keras.Model):
             inputs = inputs[0]
         weights = self.weight_layer(inputs, input_weights=input_weights)
         wgk = self.avg_layer(inputs, weights)
-        if self.traj_metric is not None:
-            self.traj_metric.update_state(
-                self.trajs, weights)
-            self.add_metric(
-                self.traj_metric.result(),
-                aggregation='mean',
-                name='ref-error')
         return wgk
 
-    def fit(self, trajs, input_weights=None, **kwargs):
+    def fit(self, trajs, input_weights=None, batch_size=None **kwargs):
         gk = _compute_restraints(trajs, self.restraints)
         inputs = gk.astype(np.float32)
+        if batch_size is None:
+            batch_size = len(gk)
         if input_weights is None:
             input_weights = tf.ones((tf.shape(gk)[0], 1))
         result = super(MaxentModel, self).fit(
-            [inputs, input_weights], tf.zeros_like(gk), **kwargs)
+            [inputs, input_weights], tf.zeros_like(gk), batch_size=batch_size, **kwargs)
         self.traj_weights = self.weight_layer(inputs, input_weights)
         self.restraint_values = gk
         return result
