@@ -1,7 +1,7 @@
 import numpy as np
 import scipy.stats as ss
 import matplotlib.pyplot as plt
-import core
+import maxent
 
 
 class TransitionMatrix:
@@ -196,7 +196,7 @@ def compartment_restrainer(restrained_patches, restrained_compartments, npoints,
     for i in range(number_of_restrained_patches):
         plot_fxns = []
         for j in range(number_of_restrained_compartments):
-            res, plfxn = core.traj_to_restraints(ref_traj[start_time:end_time, :, :], [
+            res, plfxn = maxent.traj_to_restraints(ref_traj[start_time:end_time, :, :], [
                 restrained_patches[i], restrained_compartments[j]], npoints, prior, noise, time_average)
             restraints += res
             plot_fxns += plfxn
