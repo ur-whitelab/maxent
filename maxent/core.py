@@ -145,7 +145,6 @@ class MaxentModel(tf.keras.Model):
     def __init__(self, restraints, name='maxent-model', **kwargs):
         super(MaxentModel, self).__init__(name=name, **kwargs)
         self.restraints = restraints
-        self.trajs = trajs
         restraint_dim = len(restraints)
         # identify prior
         prior = type(restraints[0].prior)
