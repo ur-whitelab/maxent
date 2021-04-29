@@ -7,17 +7,22 @@ EPS = np.finfo(np.float32).tiny
 
 class Prior:
     '''Prior distribution for expected deviation from target for restraint'''
+
     def expected(self, l):
         '''Returns expected disagreement'''
         raise NotImplementedError()
 
+
 class EmptyPrior(Prior):
     '''No prior deviation from target for restraint (exact agreement)'''
+
     def expected(self, l):
         return 0.0
 
+
 class Laplace(Prior):
     '''Laplace distribution prior expected deviation from target for restraint'''
+
     def __init__(self, sigma):
         '''Parameter for Laplace prior - higher means more allowable disagreement'''
         self.sigma = sigma
@@ -25,8 +30,10 @@ class Laplace(Prior):
     def expected(self, l):
         return -1. * l * self.sigma**2 / (1. - l**2 * self.sigma**2 / 2)
 
+
 class Restraint:
     '''Restraint - includes function, target, and prior belief in deviation from target'''
+
     def __init__(self, fxn, target, prior):
         '''fxn is callable that returns scalar, target is desired scalar value, and prior
         is a distribution for expected deviation from that target'''
@@ -40,6 +47,7 @@ class Restraint:
 
 class AvgLayerLaplace(tf.keras.layers.Layer):
     '''Layer that returns reweighted expected value for observations'''
+
     def __init__(self, reweight_layer):
         super(AvgLayerLaplace, self).__init__()
         if type(reweight_layer) != ReweightLayerLaplace:
@@ -58,6 +66,7 @@ class AvgLayerLaplace(tf.keras.layers.Layer):
 
 class ReweightLayerLaplace(tf.keras.layers.Layer):
     '''Trainable layer containing weights for maxent method'''
+
     def __init__(self, sigmas):
         super(ReweightLayerLaplace, self).__init__()
         l_init = tf.random_uniform_initializer(-1, 1)
@@ -95,6 +104,7 @@ class ReweightLayerLaplace(tf.keras.layers.Layer):
 
 class AvgLayer(tf.keras.layers.Layer):
     '''Layer that returns reweighted expected value for observations'''
+
     def __init__(self, reweight_layer):
         super(AvgLayer, self).__init__()
         if type(reweight_layer) != ReweightLayer:
@@ -109,6 +119,7 @@ class AvgLayer(tf.keras.layers.Layer):
 
 class ReweightLayer(tf.keras.layers.Layer):
     '''Trainable layer containing weights for maxent method'''
+
     def __init__(self, restraint_dim):
         super(ReweightLayer, self).__init__()
         l_init = tf.zeros_initializer()
@@ -132,6 +143,7 @@ class ReweightLayer(tf.keras.layers.Layer):
             name='weight-entropy')
         return weights
 
+
 def _compute_restraints(trajs, restraints):
     N = trajs.shape[0]
     K = len(restraints)
@@ -140,8 +152,10 @@ def _compute_restraints(trajs, restraints):
         gk[i, :] = [r(trajs[i]) for r in restraints]
     return gk
 
+
 class MaxentModel(tf.keras.Model):
     '''Keras Maximum entropy model'''
+
     def __init__(self, restraints, name='maxent-model', **kwargs):
         super(MaxentModel, self).__init__(name=name, **kwargs)
         self.restraints = restraints
@@ -176,7 +190,7 @@ class MaxentModel(tf.keras.Model):
         wgk = self.avg_layer(inputs, weights)
         return wgk
 
-    def fit(self, trajs, input_weights=None, batch_size=None **kwargs):
+    def fit(self, trajs, input_weights=None, batch_size=None, **kwargs):
         gk = _compute_restraints(trajs, self.restraints)
         inputs = gk.astype(np.float32)
         if batch_size is None:
