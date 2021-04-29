@@ -35,4 +35,4 @@ jobs:
     - name: Build examples
       run: |
         pip install jupyter
-        jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "examples/*.ipynb" --to notebook --output-dir='temp' --clear-output --Application.log_level='ERROR'
+        jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/*.ipynb" --to notebook --output-dir='temp' --clear-output --Application.log_level='ERROR'
