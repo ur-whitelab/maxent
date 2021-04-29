@@ -34,6 +34,6 @@ jobs:
          pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
     - name: Build examples
       run: |
-        pip install jupyter
+        pip install jupyter torch pandas sbi
         !pip install git+git://github.com/ur-whitelab/maxent-epidemiology.git@3d1b01d177026d3aa6192fdc2508bb9d50007a6e
         jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/*.ipynb" --to notebook --output-dir='temp' --clear-output --Application.log_level='ERROR'
