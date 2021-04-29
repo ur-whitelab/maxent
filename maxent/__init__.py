@@ -5,5 +5,5 @@ __author__ = 'Mehrad Ansari <Mehrad.ansari@rochester.edu>, Rainier Barrett <rain
 __all__ = []
 
 from .hyper import ParameterJoint, TrainableInputLayer, HyperMaxentModel
-from .core import Prior, EmptyPrior, LaplacePrior, MaxentModel, Restraint,
-AvgLayerLaplace, AvgLayer, ReweightLayer, ReweightLayerLaplace
+from .core import Prior, EmptyPrior, Laplace, MaxentModel, Restraint, \
+    AvgLayerLaplace, AvgLayer, ReweightLayer, ReweightLayerLaplace
