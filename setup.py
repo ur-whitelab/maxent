@@ -8,22 +8,22 @@ from setuptools import setup
 
 def read(filename):
     filename = os.path.join(os.path.dirname(__file__), filename)
-    text_type = type(u"")
-    with io.open(filename, mode="r", encoding='utf-8') as fd:
+    text_type = type(u'')
+    with io.open(filename, mode='r', encoding='utf-8') as fd:
         return re.sub(text_type(r':[a-z]+:`~?(.*?)`'), text_type(r'``\1``'), fd.read())
 
 
 setup(
-    name="maxent",
-    version="1.0",
-    url="https://github.com/ur-whitelab/maxent",
+    name='maxent',
+    version='1.0',
+    url='https://github.com/ur-whitelab/maxent',
     license='MIT',
 
-    author="Rainier Barret, Mehrad Ansari, Andrew D White",
-    author_email="andrew.white@rochester.edu",
+    author='Rainier Barret, Mehrad Ansari, Andrew D White',
+    author_email='andrew.white@rochester.edu',
 
-    description="Maximum entropy inference Keras implementation",
-    long_description=read("README.md"),
+    description='Maximum entropy inference Keras implementation',
+    long_description=read('README.md'),
 
     packages=find_packages(exclude=('tests',)),
 
