@@ -97,7 +97,7 @@ class TestHyperModel(unittest.TestCase):
         hme_model.compile(tf.keras.optimizers.Adam(0.5), 'mean_squared_error')
         hme_model.fit(epochs=64, outter_epochs=2)
         e = np.sum(hme_model.trajs[:, 0] * hme_model.traj_weights)
-        npt.assert_array_almost_equal(e, 8.0, decimal=1)
+        assert abs(e - 8.0) < 0.25
 
 
 if __name__ == '__main__':
