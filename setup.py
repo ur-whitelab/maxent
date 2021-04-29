@@ -17,7 +17,7 @@ setup(
     name='maxent',
     version='1.0',
     url='https://github.com/ur-whitelab/maxent',
-    license='MIT',
+    license='GPL v2',
 
     author='Rainier Barret, Mehrad Ansari, Andrew D White',
     author_email='andrew.white@rochester.edu',
@@ -32,7 +32,7 @@ setup(
 
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: GPL v2 License',
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.4',
