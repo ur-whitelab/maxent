@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+- family-names: "Barrett"
+  given-names: "Rainier"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+- family-names: "Ansari"
+  given-names: "Mehrad"
+  orcid: "https://orcid.org/0000-0001-5696-91930"
+ - family-names: "White"
+  given-names: "Andrew"
+  orcid: "https://orcid.org/0000-0000-0000-0000"
+title: "maxent"
+version: 1.0.0
+doi: 10.5281/zenodo.1234
+date-released: 2021-08-01
+url: "https://github.com/ur-whitelab/maxent"
