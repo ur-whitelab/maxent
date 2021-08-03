@@ -8,3 +8,4 @@ matplotlib
 seaborn
 tqdm
 jupyter
+git+git://github.com/ur-whitelab/maxent-epidemiology.git@3d1b01d177026d3aa6192fdc2508bb9d50007a6e
