@@ -1,7 +1,7 @@
 tensorflow-probability~=0.12
 tensorflow~=2.4
 sbi==0.15.1
-pyabc==0.10.14
+pyabc==0.10.7
 pandas~=1.2.4
 numpy==1.19.2
 matplotlib
