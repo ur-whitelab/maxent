@@ -27,8 +27,8 @@ setup(
 
     packages=find_packages(exclude=('tests',)),
 
-    install_requires=['numpy', 'matplotlib',
-                      'tensorflow', 'tensorflow_probability', 'tqdm', 'seaborn'],
+    install_requires=['numpy',
+                      'tensorflow', 'tensorflow_probability'],
 
     classifiers=[
         'Development Status :: 2 - Pre-Alpha',
