@@ -36,7 +36,7 @@ mean = np.sum(z * model.traj_weights)
 
 ## Citation
 
-Barrett, Rainier, et al. "Simulation-Based Inference with Approximately Correct Parameters via Maximum Entropy." arXiv preprint arXiv:2104.09668 (2021).
+[Barrett, Rainier, et al. "Simulation-Based Inference with Approximately Correct Parameters via Maximum Entropy." arXiv preprint arXiv:2104.09668 (2021).](https://arxiv.org/abs/2104.09668)
 
 ```bibtex
 @article{barrett2021simulation,
