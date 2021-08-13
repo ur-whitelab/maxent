@@ -59,8 +59,7 @@ class Restraint:
 
 
 class _ReweightLayerLaplace(tf.keras.layers.Layer):
-    """Trainable layer containing weights for maxent method
-    """
+    """Trainable layer containing weights for maxent method"""
 
     def __init__(self, sigmas: Array):
         super(_ReweightLayerLaplace, self).__init__()
@@ -194,8 +193,7 @@ class MaxentModel(tf.keras.Model):
             if type(r.prior) != prior:
                 raise ValueError("Can only do restraints of one type")
         if prior == Laplace:
-            sigmas = np.array(
-                [r.prior.sigma for r in restraints], dtype=np.float32)
+            sigmas = np.array([r.prior.sigma for r in restraints], dtype=np.float32)
             self.weight_layer = _ReweightLayerLaplace(sigmas)
             self.avg_layer = _AvgLayerLaplace(self.weight_layer)
         else:
@@ -205,18 +203,16 @@ class MaxentModel(tf.keras.Model):
         self.prior = prior
 
     def reset_weights(self):
-        '''Zero out the weights of the model
-
-        '''
+        """Zero out the weights of the model"""
         w = self.weight_layer.get_weights()
         self.weight_layer.set_weights(tf.zeros_like(w))
 
     def call(self, inputs: Union[Array, List[Array], Tuple[Array]]) -> tf.TensorArray:
-        '''Compute reweighted restraint values
+        """Compute reweighted restraint values
 
         :param inputs: Restraint values
         :return: Weighted restraint values
-        '''
+        """
         input_weights = None
         if (type(inputs) == tuple or type(inputs) == list) and len(inputs) == 2:
             input_weights = inputs[1]

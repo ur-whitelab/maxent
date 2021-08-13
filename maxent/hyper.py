@@ -36,7 +36,7 @@ def negloglik(y: Array, rv_y: tfd.Distribution) -> Array:
 
 
 class ParameterJoint(tf.keras.Model):
-    '''Prior parameter model joint distribution
+    """Prior parameter model joint distribution
 
     This packages up how you want to sample prior paramters into one joint distribution.
     This has an important ability of reshaping output from distributions in case your simulation requires
@@ -45,26 +45,25 @@ class ParameterJoint(tf.keras.Model):
     :param inputs: :class:`tf.keras.Input` or tuple of them.
     :param outputs: list of :py:class:`tfp.distributions.Distribution`
     :param reshapers: optional list of callables that will be called on outputs from your distribution
-    '''
+    """
 
     def __init__(
         self,
-        inputs: Union[tf.keras.Input, Tuple[tf.keras.Input]], outputs: List[tfd.Distribution],
+        inputs: Union[tf.keras.Input, Tuple[tf.keras.Input]],
+        outputs: List[tfd.Distribution],
         reshapers: List[Callable[[Array], Array]] = None,
-        ** kwargs
+        **kwargs
     ):
         if reshapers:
             self.reshapers = reshapers
             self.output_count = len(reshapers)
         else:
             self.output_count = len(outputs)
-            self.reshapers = [
-                lambda x: x for _ in range(self.output_count)]
-        super(ParameterJoint, self).__init__(
-            inputs=inputs, outputs=outputs, **kwargs)
+            self.reshapers = [lambda x: x for _ in range(self.output_count)]
+        super(ParameterJoint, self).__init__(inputs=inputs, outputs=outputs, **kwargs)
 
     def compile(self, optimizer: object, **kwargs):
-        '''See ``compile`` method of  :class:`tf.keras.Model`'''
+        """See ``compile`` method of  :class:`tf.keras.Model`"""
         if "loss" in kwargs:
             raise ValueError("Do not set loss")
         super(ParameterJoint, self).compile(
@@ -74,12 +73,12 @@ class ParameterJoint(tf.keras.Model):
     def sample(
         self, N: int, return_joint: bool = False
     ) -> Union[Tuple[Array, Array, Any], Array]:
-        '''Generate sample
+        """Generate sample
 
         :param N: Number of samples (events)
         :param return_joint: return a joint :py:class:`tfp.distributions.Distribution` that can be called on ``y``
         :return: the reshaped output samples and (if ``return_joint``) a value ``y`` which can be used to compute probabilities and :py:class:`tfp.distributions.Distribution` joint
-        '''
+        """
         joint = self(tf.constant([1.0]))
         if type(joint) != list:
             joint = [joint]
@@ -98,8 +97,7 @@ def _reweight(
     logit = tf.zeros((batch_dim,))
     for i, (uj, j) in enumerate(zip(unbiased_joint, joint)):
         # reduce across other axis (summing independent variable log ps)
-        logitdiff = uj.log_prob(
-            samples[i] + EPS) - j.log_prob(samples[i] + EPS)
+        logitdiff = uj.log_prob(samples[i] + EPS) - j.log_prob(samples[i] + EPS)
         logit += tf.reduce_sum(tf.reshape(logitdiff, (batch_dim, -1)), axis=1)
     return tf.math.softmax(logit)
 
@@ -134,12 +132,11 @@ class TrainableInputLayer(tf.keras.layers.Layer):
         )
 
     def call(self, inputs: Array) -> Array:
-        '''See call of :class:`tf.keras.layers.Layer`'''
+        """See call of :class:`tf.keras.layers.Layer`"""
         batch_dim = tf.shape(inputs)[:1]
         return tf.tile(
             self.w[tf.newaxis, ...],
-            tf.concat(
-                (batch_dim, tf.ones(tf.rank(self.w), dtype=tf.int32)), axis=0),
+            tf.concat((batch_dim, tf.ones(tf.rank(self.w), dtype=tf.int32)), axis=0),
         )
 
 
@@ -217,8 +214,7 @@ class HyperMaxentModel(MaxentModel):
                 param_epochs = kwargs["epochs"]
         for i in range(outer_epochs - 1):
             # sample parameters
-            psample, y, joint = self.prior_model.sample(
-                sample_batch_size, True)
+            psample, y, joint = self.prior_model.sample(sample_batch_size, True)
             trajs = self.simulation(*psample)
             # get reweight, so we keep original parameter
             # probs
@@ -247,8 +243,7 @@ class HyperMaxentModel(MaxentModel):
         outs = []
         rws = []
         for i in range(final_batch_multiplier):
-            psample, y, joint = self.prior_model.sample(
-                sample_batch_size, True)
+            psample, y, joint = self.prior_model.sample(sample_batch_size, True)
             trajs = self.simulation(*psample)
             outs.append(trajs)
             rw = _reweight(y, self.unbiased_joint, joint)

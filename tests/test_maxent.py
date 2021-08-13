@@ -38,14 +38,12 @@ class TestLayers(unittest.TestCase):
         la(gk, w)
 
     def test_lrw_layer(self):
-        l = maxent._ReweightLayerLaplace(
-            np.random.normal(size=10).astype(np.float32))
+        l = maxent._ReweightLayerLaplace(np.random.normal(size=10).astype(np.float32))
         w = l(np.arange(10, dtype=np.float32))
         assert len(w) == 1
 
     def test_lavg_layer(self):
-        l = maxent._ReweightLayerLaplace(
-            np.random.normal(size=10).astype(np.float32))
+        l = maxent._ReweightLayerLaplace(np.random.normal(size=10).astype(np.float32))
         la = maxent._AvgLayerLaplace(l)
         gk = np.arange(10, dtype=np.float32)
         w = l(gk)
