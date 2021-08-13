@@ -97,7 +97,6 @@ class HyperMaxentModel(MaxentModel):
         self.simulation = simulation
 
     def fit(self, sample_batch_size=256, final_batch_multiplier=4, param_epochs=None, outter_epochs=10, **kwargs):
-        # TODO: Deal with callbacks/history
         me_history, prior_history = None, None
 
         # we want to reset optimizer state each time we have
@@ -108,6 +107,12 @@ class HyperMaxentModel(MaxentModel):
 
         def new_optimizer():
             return self.optimizer.__class__(**self.optimizer.get_config())
+
+        uni_flags = ['verbose']
+        prior_kwargs = {}
+        for u in uni_flags:
+            if u in kwargs:
+                prior_kwargs[u] = kwargs[u]
 
         if param_epochs is None:
             param_epochs = 10
@@ -135,7 +140,7 @@ class HyperMaxentModel(MaxentModel):
                 hm = super(HyperMaxentModel, self).fit(trajs, **kwargs)
             fake_x = tf.constant(sample_batch_size * [1.])
             hp = self.prior_model.fit(
-                fake_x, y, sample_weight=self.traj_weights, epochs=param_epochs)
+                fake_x, y, sample_weight=self.traj_weights, epochs=param_epochs, **prior_kwargs)
             if me_history is None:
                 me_history = hm
                 prior_history = hp

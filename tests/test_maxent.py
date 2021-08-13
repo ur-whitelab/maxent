@@ -100,6 +100,7 @@ class TestHyperModel(unittest.TestCase):
         e = np.sum(hme_model.trajs[:, 0] * hme_model.traj_weights)
         assert abs(e - 8.0) < 0.25
 
+
     def test_error(self):
         # make a model for sampling parameters
         x = np.array([1., 1.])
