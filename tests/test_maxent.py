@@ -78,13 +78,14 @@ class TestModel(unittest.TestCase):
 class TestHyperModel(unittest.TestCase):
     def test_hme(self):
         # make a model for sampling parameters
+        tf.random.set_seed(0)
         x = np.array([1., 1.])
         i = tf.keras.Input((1,))
         l = maxent.TrainableInputLayer(x)(i)
         d = tfp.layers.DistributionLambda(lambda x: tfd.Normal(
             loc=x[..., 0], scale=tf.math.exp(x[..., 1])))(l)
         model = maxent.ParameterJoint([lambda x: x], inputs=i, outputs=[d])
-        model.compile(tf.keras.optimizers.Adam(0.1))
+        model.compile(tf.keras.optimizers.SGD(0.1))
 
         # make simulator
         def simulate(x):
@@ -98,6 +99,26 @@ class TestHyperModel(unittest.TestCase):
         hme_model.fit(epochs=64, outter_epochs=2)
         e = np.sum(hme_model.trajs[:, 0] * hme_model.traj_weights)
         assert abs(e - 8.0) < 0.25
+
+    def test_error(self):
+        # make a model for sampling parameters
+        x = np.array([1., 1.])
+        i = tf.keras.Input((1,))
+        l = maxent.TrainableInputLayer(x)(i)
+        d = tfp.layers.DistributionLambda(lambda x: tfd.Normal(
+            loc=x[..., 0], scale=tf.math.exp(x[..., 1])))(l)
+        model = maxent.ParameterJoint([lambda x: x], inputs=i, outputs=[d])
+        model.compile(tf.keras.optimizers.Adam(0.1))
+
+        # make bad simulator
+        def simulate(x):
+            y = np.random.normal(loc=2, scale=0.1)
+            return y
+
+        # make ME model
+        r = maxent.Restraint(lambda x: x, 8, maxent.EmptyPrior())
+        with self.assertRaises(ValueError) as e:
+            hme_model = maxent.HyperMaxentModel([r], model, simulate)
 
 
 if __name__ == '__main__':

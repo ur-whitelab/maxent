@@ -96,6 +96,17 @@ class HyperMaxentModel(MaxentModel):
             self.unbiased_joint = [self.unbiased_joint]
         self.simulation = simulation
 
+        # let's test simulation
+        psample = prior_model.sample(2)
+        trajs = simulation(*psample)
+        try:
+            if len(trajs) != 2:
+                raise ValueError(
+                    'Simulation must take in batched samples and return batched outputs')
+        except TypeError as e:
+            raise ValueError(
+                'Simulation must take in batched samples and return batched outputs')
+
     def fit(self, sample_batch_size=256, final_batch_multiplier=4, param_epochs=None, outter_epochs=10, **kwargs):
         # TODO: Deal with callbacks/history
         me_history, prior_history = None, None
@@ -105,6 +116,7 @@ class HyperMaxentModel(MaxentModel):
         # but compile, new object assignment both
         # don't work.
         # So I guess use SGD?
+
         def new_optimizer():
             return self.optimizer.__class__(**self.optimizer.get_config())
 
