@@ -99,6 +99,11 @@ class TestHyperModel(unittest.TestCase):
         e = np.sum(hme_model.trajs[:, 0] * hme_model.traj_weights)
         assert abs(e - 8.0) < 0.25
 
+        # pass flags for prior
+        hme_model.fit(epochs=64, outter_epochs=2, verbose=0)
+        e = np.sum(hme_model.trajs[:, 0] * hme_model.traj_weights)
+        assert abs(e - 8.0) < 0.25
+
 
 if __name__ == '__main__':
     unittest.main()
