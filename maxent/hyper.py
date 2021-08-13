@@ -49,18 +49,21 @@ class ParameterJoint(tf.keras.Model):
 
     def __init__(
         self,
-        inputs: Union[tf.keras.Input, Tuple[tf.keras.Input]],
-        outputs: List[tfd.Distribution],
         reshapers: List[Callable[[Array], Array]] = None,
+        inputs: Union[tf.keras.Input, Tuple[tf.keras.Input]] = None,
+        outputs: List[tfd.Distribution] = None,
         **kwargs
     ):
+        if inputs is None or outputs is None:
+            raise ValueError('Must pass inputs and outputs to construct model')
         if reshapers:
             self.reshapers = reshapers
             self.output_count = len(reshapers)
         else:
             self.output_count = len(outputs)
             self.reshapers = [lambda x: x for _ in range(self.output_count)]
-        super(ParameterJoint, self).__init__(inputs=inputs, outputs=outputs, **kwargs)
+        super(ParameterJoint, self).__init__(
+            inputs=inputs, outputs=outputs, **kwargs)
 
     def compile(self, optimizer: object, **kwargs):
         """See ``compile`` method of  :class:`tf.keras.Model`"""
@@ -97,7 +100,8 @@ def _reweight(
     logit = tf.zeros((batch_dim,))
     for i, (uj, j) in enumerate(zip(unbiased_joint, joint)):
         # reduce across other axis (summing independent variable log ps)
-        logitdiff = uj.log_prob(samples[i] + EPS) - j.log_prob(samples[i] + EPS)
+        logitdiff = uj.log_prob(
+            samples[i] + EPS) - j.log_prob(samples[i] + EPS)
         logit += tf.reduce_sum(tf.reshape(logitdiff, (batch_dim, -1)), axis=1)
     return tf.math.softmax(logit)
 
@@ -136,7 +140,8 @@ class TrainableInputLayer(tf.keras.layers.Layer):
         batch_dim = tf.shape(inputs)[:1]
         return tf.tile(
             self.w[tf.newaxis, ...],
-            tf.concat((batch_dim, tf.ones(tf.rank(self.w), dtype=tf.int32)), axis=0),
+            tf.concat(
+                (batch_dim, tf.ones(tf.rank(self.w), dtype=tf.int32)), axis=0),
         )
 
 
@@ -214,7 +219,8 @@ class HyperMaxentModel(MaxentModel):
                 param_epochs = kwargs["epochs"]
         for i in range(outer_epochs - 1):
             # sample parameters
-            psample, y, joint = self.prior_model.sample(sample_batch_size, True)
+            psample, y, joint = self.prior_model.sample(
+                sample_batch_size, True)
             trajs = self.simulation(*psample)
             # get reweight, so we keep original parameter
             # probs
@@ -243,7 +249,8 @@ class HyperMaxentModel(MaxentModel):
         outs = []
         rws = []
         for i in range(final_batch_multiplier):
-            psample, y, joint = self.prior_model.sample(sample_batch_size, True)
+            psample, y, joint = self.prior_model.sample(
+                sample_batch_size, True)
             trajs = self.simulation(*psample)
             outs.append(trajs)
             rw = _reweight(y, self.unbiased_joint, joint)
