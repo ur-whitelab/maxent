@@ -151,6 +151,7 @@ class HyperMaxentModel(MaxentModel):
         # but compile, new object assignment both
         # don't work.
         # So I guess use SGD?
+
         def new_optimizer():
             return self.optimizer.__class__(**self.optimizer.get_config())
 
@@ -169,6 +170,13 @@ class HyperMaxentModel(MaxentModel):
             psample, y, joint = self.prior_model.sample(
                 sample_batch_size, True)
             trajs = self.simulation(*psample)
+            try:
+                if trajs.shape[0] != sample_batch_size:
+                    raise ValueError(
+                        'Simulation must take in batched samples and return batched outputs')
+            except TypeError as e:
+                raise ValueError(
+                    'Simulation must take in batched samples and return batched outputs')
             # get reweight, so we keep original parameter
             # probs
             rw = reweight(y, self.unbiased_joint, joint)
