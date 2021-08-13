@@ -117,8 +117,9 @@ class TestHyperModel(unittest.TestCase):
 
         # make ME model
         r = maxent.Restraint(lambda x: x, 8, maxent.EmptyPrior())
+        hme_model = maxent.HyperMaxentModel([r], model, simulate)
         with self.assertRaises(ValueError) as e:
-            hme_model = maxent.HyperMaxentModel([r], model, simulate)
+            hme_model.fit(epochs=1, outter_epochs=1)
 
 
 if __name__ == '__main__':

@@ -96,17 +96,6 @@ class HyperMaxentModel(MaxentModel):
             self.unbiased_joint = [self.unbiased_joint]
         self.simulation = simulation
 
-        # let's test simulation
-        psample = prior_model.sample(2)
-        trajs = simulation(*psample)
-        try:
-            if len(trajs) != 2:
-                raise ValueError(
-                    'Simulation must take in batched samples and return batched outputs')
-        except TypeError as e:
-            raise ValueError(
-                'Simulation must take in batched samples and return batched outputs')
-
     def fit(self, sample_batch_size=256, final_batch_multiplier=4, param_epochs=None, outter_epochs=10, **kwargs):
         # TODO: Deal with callbacks/history
         me_history, prior_history = None, None
@@ -129,6 +118,13 @@ class HyperMaxentModel(MaxentModel):
             psample, y, joint = self.prior_model.sample(
                 sample_batch_size, True)
             trajs = self.simulation(*psample)
+            try:
+                if trajs.shape[0] != sample_batch_size:
+                    raise ValueError(
+                        'Simulation must take in batched samples and return batched outputs')
+            except TypeError as e:
+                raise ValueError(
+                    'Simulation must take in batched samples and return batched outputs')
             # get reweight, so we keep original parameter
             # probs
             rw = reweight(y, self.unbiased_joint, joint)
