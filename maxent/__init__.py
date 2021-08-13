@@ -11,8 +11,8 @@ from .core import (
     Laplace,
     MaxentModel,
     Restraint,
-    AvgLayerLaplace,
-    AvgLayer,
-    ReweightLayer,
-    ReweightLayerLaplace,
+    _AvgLayerLaplace,
+    _AvgLayer,
+    _ReweightLayer,
+    _ReweightLayerLaplace,
 )

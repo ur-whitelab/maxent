@@ -4,6 +4,7 @@ from math import sqrt
 from typing import *
 
 EPS = np.finfo(np.float32).tiny
+#: Array-like type
 Array = Union[np.ndarray, tf.TensorArray, float, List[float]]
 
 
@@ -11,7 +12,11 @@ class Prior:
     """Prior distribution for expected deviation from target for restraint"""
 
     def expected(self, l: float) -> float:
-        """Returns expected disagreement"""
+        """Expected disagreement
+
+        :param l: The lagrange multiplier
+        :return: expected disagreement
+        """
         raise NotImplementedError()
 
 
@@ -23,10 +28,12 @@ class EmptyPrior(Prior):
 
 
 class Laplace(Prior):
-    """Laplace distribution prior expected deviation from target for restraint"""
+    """Laplace distribution prior expected deviation from target for restraint
+
+    :param sigma: Parameter for Laplace prior - higher means more allowable disagreement
+    """
 
     def __init__(self, sigma: float) -> float:
-        """Parameter for Laplace prior - higher means more allowable disagreement"""
         self.sigma = sigma
 
     def expected(self, l: float) -> float:
@@ -34,11 +41,15 @@ class Laplace(Prior):
 
 
 class Restraint:
-    """Restraint - includes function, target, and prior belief in deviation from target"""
+    """Restraint - includes function, target, and prior belief in deviation from target
+
+    :param fxn: callable that returns scalar
+    :param target: desired scalar value
+    :param prior: prior is a :class:`Prior` for expected deviation from that target
+    """
 
     def __init__(self, fxn: Callable[[Array], float], target: float, prior: Prior):
-        """fxn is callable that returns scalar, target is desired scalar value, and prior
-        is a distribution for expected deviation from that target"""
+
         self.target = target
         self.fxn = fxn
         self.prior = prior
@@ -47,11 +58,12 @@ class Restraint:
         return self.fxn(traj) - self.target
 
 
-class ReweightLayerLaplace(tf.keras.layers.Layer):
-    """Trainable layer containing weights for maxent method"""
+class _ReweightLayerLaplace(tf.keras.layers.Layer):
+    """Trainable layer containing weights for maxent method
+    """
 
     def __init__(self, sigmas: Array):
-        super(ReweightLayerLaplace, self).__init__()
+        super(_ReweightLayerLaplace, self).__init__()
         l_init = tf.random_uniform_initializer(-1, 1)
         restraint_dim = len(sigmas)
         self.l = tf.Variable(
@@ -90,12 +102,12 @@ class ReweightLayerLaplace(tf.keras.layers.Layer):
         return weights
 
 
-class AvgLayerLaplace(tf.keras.layers.Layer):
+class _AvgLayerLaplace(tf.keras.layers.Layer):
     """Layer that returns reweighted expected value for observations"""
 
-    def __init__(self, reweight_layer: ReweightLayerLaplace):
-        super(AvgLayerLaplace, self).__init__()
-        if type(reweight_layer) != ReweightLayerLaplace:
+    def __init__(self, reweight_layer: _ReweightLayerLaplace):
+        super(_AvgLayerLaplace, self).__init__()
+        if type(reweight_layer) != _ReweightLayerLaplace:
             raise TypeError()
         self.rl = reweight_layer
 
@@ -110,11 +122,11 @@ class AvgLayerLaplace(tf.keras.layers.Layer):
         return err_e_gk
 
 
-class ReweightLayer(tf.keras.layers.Layer):
+class _ReweightLayer(tf.keras.layers.Layer):
     """Trainable layer containing weights for maxent method"""
 
     def __init__(self, restraint_dim: int):
-        super(ReweightLayer, self).__init__()
+        super(_ReweightLayer, self).__init__()
         l_init = tf.zeros_initializer()
         self.l = tf.Variable(
             initial_value=l_init(shape=(restraint_dim,), dtype="float32"),
@@ -138,12 +150,12 @@ class ReweightLayer(tf.keras.layers.Layer):
         return weights
 
 
-class AvgLayer(tf.keras.layers.Layer):
+class _AvgLayer(tf.keras.layers.Layer):
     """Layer that returns reweighted expected value for observations"""
 
-    def __init__(self, reweight_layer: ReweightLayer):
-        super(AvgLayer, self).__init__()
-        if type(reweight_layer) != ReweightLayer:
+    def __init__(self, reweight_layer: _ReweightLayer):
+        super(_AvgLayer, self).__init__()
+        if type(reweight_layer) != _ReweightLayer:
             raise TypeError()
         self.rl = reweight_layer
 
@@ -163,7 +175,11 @@ def _compute_restraints(trajs, restraints):
 
 
 class MaxentModel(tf.keras.Model):
-    """Keras Maximum entropy model"""
+    """Keras Maximum entropy model
+
+    :param restraints: List of :class:`Restraint`
+    :param name: Name of model
+    """
 
     def __init__(
         self, restraints: List[Restraint], name: str = "maxent-model", **kwargs
@@ -180,19 +196,27 @@ class MaxentModel(tf.keras.Model):
         if prior == Laplace:
             sigmas = np.array(
                 [r.prior.sigma for r in restraints], dtype=np.float32)
-            self.weight_layer = ReweightLayerLaplace(sigmas)
-            self.avg_layer = AvgLayerLaplace(self.weight_layer)
+            self.weight_layer = _ReweightLayerLaplace(sigmas)
+            self.avg_layer = _AvgLayerLaplace(self.weight_layer)
         else:
-            self.weight_layer = ReweightLayer(restraint_dim)
-            self.avg_layer = AvgLayer(self.weight_layer)
+            self.weight_layer = _ReweightLayer(restraint_dim)
+            self.avg_layer = _AvgLayer(self.weight_layer)
         self.lambdas = self.weight_layer.l
         self.prior = prior
 
     def reset_weights(self):
+        '''Zero out the weights of the model
+
+        '''
         w = self.weight_layer.get_weights()
         self.weight_layer.set_weights(tf.zeros_like(w))
 
-    def call(self, inputs: Union[List[Array], Tuple[Array]]) -> tf.TensorArray:
+    def call(self, inputs: Union[Array, List[Array], Tuple[Array]]) -> tf.TensorArray:
+        '''Compute reweighted restraint values
+
+        :param inputs: Restraint values
+        :return: Weighted restraint values
+        '''
         input_weights = None
         if (type(inputs) == tuple or type(inputs) == list) and len(inputs) == 2:
             input_weights = inputs[1]
@@ -208,6 +232,14 @@ class MaxentModel(tf.keras.Model):
         batch_size: int = None,
         **kwargs
     ) -> tf.keras.callbacks.History:
+        """Fit to given observations with restraints
+
+        :param trajs: Observations, which can be input to :class:`Restraint`
+        :param input_weights: Array of weights which will be start
+        :param batch_size: Almost always should be equal to number of trajs, unless you want to mix your Lagrange multipliers across trajectories
+        :param kwargs: See :class:tf.keras.Model ``fit`` method for further optional arguments, like ``verbose=0`` to hide output
+        :return: The history of fit
+        """
         gk = _compute_restraints(trajs, self.restraints)
         inputs = gk.astype(np.float32)
         if batch_size is None:
