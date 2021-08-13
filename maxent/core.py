@@ -49,7 +49,6 @@ class Restraint:
     """
 
     def __init__(self, fxn: Callable[[Array], float], target: float, prior: Prior):
-
         self.target = target
         self.fxn = fxn
         self.prior = prior
@@ -120,7 +119,7 @@ class _AvgLayerLaplace(tf.keras.layers.Layer):
         )
         return err_e_gk
 
-
+      
 class _ReweightLayer(tf.keras.layers.Layer):
     """Trainable layer containing weights for maxent method"""
 

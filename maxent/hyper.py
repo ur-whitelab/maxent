@@ -116,7 +116,6 @@ class TrainableInputLayer(tf.keras.layers.Layer):
     :param constraint: Callable that returns scalar given output. See :py:class:`tf.keras.layers.Layer`
     :param kwargs: See :py:class:`tf.Keras.layers.Layer` for additional arguments
     """
-
     def __init__(
         self,
         initial_value: Array,
@@ -154,7 +153,6 @@ class HyperMaxentModel(MaxentModel):
     :param reweight: True means use to remove effect of prior training updates via reweighting, which keeps as close as possible to given untrained ``prior_model``
     :param name: Name of model
     """
-
     def __init__(
         self,
         restraints: List[Restraint],
@@ -204,6 +202,7 @@ class HyperMaxentModel(MaxentModel):
         # but compile, new object assignment both
         # don't work.
         # So I guess use SGD?
+
         def new_optimizer():
             return self.optimizer.__class__(**self.optimizer.get_config())
 
@@ -222,6 +221,13 @@ class HyperMaxentModel(MaxentModel):
             psample, y, joint = self.prior_model.sample(
                 sample_batch_size, True)
             trajs = self.simulation(*psample)
+            try:
+                if trajs.shape[0] != sample_batch_size:
+                    raise ValueError(
+                        'Simulation must take in batched samples and return batched outputs')
+            except TypeError as e:
+                raise ValueError(
+                    'Simulation must take in batched samples and return batched outputs')
             # get reweight, so we keep original parameter
             # probs
             rw = _reweight(y, self.unbiased_joint, joint)
