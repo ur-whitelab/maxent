@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        python-version: [3.7, 3.8]
+        python-version: [3.7, 3.8, 3.9]
 
     steps:
     - uses: actions/checkout@v2
@@ -32,12 +32,4 @@ jobs:
     - name: Run Test
       run: |
          pytest tests --doctest-modules --junitxml=junit/test-results.xml --cov=com --cov-report=xml --cov-report=html
-    - name: Install paper depends
-      run: |
-        pip install -r paper/requirements.txt
-    - name: Run Gaussian System
-      run: jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/gaussian.ipynb" --to notebook --output-dir='temp' --clear-output
-    - name: Run Epidemiology System
-      run: jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/epidemiology.ipynb" --to notebook --output-dir='temp' --clear-output
-    - name: Run Gravitation System
-      run: jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/gravitation.ipynb" --to notebook --output-dir='temp' --clear-output
+         
