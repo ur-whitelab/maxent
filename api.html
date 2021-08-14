@@ -1,0 +1,508 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>API &mdash; maxent  documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Getting Started" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="toc.html" class="icon icon-home"> maxent
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Getting Started</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-maxent.hyper">maxent.hyper module</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="toc.html">maxent</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="toc.html" class="icon icon-home"></a> &raquo;</li>
+        
+      <li>API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="_sources/api.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-maxent.core">
+<span id="api"></span><h1>API<a class="headerlink" href="#module-maxent.core" title="Permalink to this headline">¶</a></h1>
+<dl class="py data">
+<dt class="sig sig-object py" id="maxent.core.Array">
+<span class="sig-name descname"><span class="pre">Array</span></span><a class="headerlink" href="#maxent.core.Array" title="Permalink to this definition">¶</a></dt>
+<dd><p>Array-like type</p>
+<p>alias of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">tensorflow.python.ops.tensor_array_ops.TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="maxent.core.EmptyPrior">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">EmptyPrior</span></span><a class="headerlink" href="#maxent.core.EmptyPrior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#maxent.core.Prior" title="maxent.core.Prior"><code class="xref py py-class docutils literal notranslate"><span class="pre">maxent.core.Prior</span></code></a></p>
+<p>No prior deviation from target for restraint (exact agreement)</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.core.EmptyPrior.expected">
+<span class="sig-name descname"><span class="pre">expected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.EmptyPrior.expected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expected disagreement</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>l</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The lagrange multiplier</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>expected disagreement</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="maxent.core.Laplace">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Laplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sigma</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.Laplace" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#maxent.core.Prior" title="maxent.core.Prior"><code class="xref py py-class docutils literal notranslate"><span class="pre">maxent.core.Prior</span></code></a></p>
+<p>Laplace distribution prior expected deviation from target for restraint</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>sigma</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – Parameter for Laplace prior - higher means more allowable disagreement</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.core.Laplace.expected">
+<span class="sig-name descname"><span class="pre">expected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.Laplace.expected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expected disagreement</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>l</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The lagrange multiplier</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>expected disagreement</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="maxent.core.MaxentModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">MaxentModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'maxent-model'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.MaxentModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.training.Model</span></code></p>
+<p>Keras Maximum entropy model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>restraints</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#maxent.core.Restraint" title="maxent.core.Restraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">Restraint</span></code></a>]) – List of <a class="reference internal" href="#maxent.core.Restraint" title="maxent.core.Restraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">Restraint</span></code></a></p></li>
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of model</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.core.MaxentModel.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.MaxentModel.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute reweighted restraint values</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>], <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]], <code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]]]) – Restraint values</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Weighted restraint values</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.core.MaxentModel.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trajs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_weights</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.MaxentModel.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit to given observations with restraints</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trajs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – Observations, which can be input to <a class="reference internal" href="#maxent.core.Restraint" title="maxent.core.Restraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">Restraint</span></code></a></p></li>
+<li><p><strong>input_weights</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – Array of weights which will be start</p></li>
+<li><p><strong>batch_size</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Almost always should be equal to number of trajs, unless you want to mix your Lagrange multipliers across trajectories</p></li>
+<li><p><strong>kwargs</strong> – See :class:tf.keras.Model <code class="docutils literal notranslate"><span class="pre">fit</span></code> method for further optional arguments, like <code class="docutils literal notranslate"><span class="pre">verbose=0</span></code> to hide output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">History</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The history of fit</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.core.MaxentModel.reset_weights">
+<span class="sig-name descname"><span class="pre">reset_weights</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.MaxentModel.reset_weights" title="Permalink to this definition">¶</a></dt>
+<dd><p>Zero out the weights of the model</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="maxent.core.Prior">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Prior</span></span><a class="headerlink" href="#maxent.core.Prior" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Prior distribution for expected deviation from target for restraint</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.core.Prior.expected">
+<span class="sig-name descname"><span class="pre">expected</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">l</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.Prior.expected" title="Permalink to this definition">¶</a></dt>
+<dd><p>Expected disagreement</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>l</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – The lagrange multiplier</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>expected disagreement</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="maxent.core.Restraint">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">Restraint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fxn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.core.Restraint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Restraint - includes function, target, and prior belief in deviation from target</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fxn</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]], <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]) – callable that returns scalar</p></li>
+<li><p><strong>target</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>) – desired scalar value</p></li>
+<li><p><strong>prior</strong> (<a class="reference internal" href="#maxent.core.Prior" title="maxent.core.Prior"><code class="xref py py-class docutils literal notranslate"><span class="pre">Prior</span></code></a>) – prior is a <a class="reference internal" href="#maxent.core.Prior" title="maxent.core.Prior"><code class="xref py py-class docutils literal notranslate"><span class="pre">Prior</span></code></a> for expected deviation from that target</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<div class="section" id="module-maxent.hyper">
+<span id="maxent-hyper-module"></span><h2>maxent.hyper module<a class="headerlink" href="#module-maxent.hyper" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="maxent.hyper.HyperMaxentModel">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">HyperMaxentModel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">restraints</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">prior_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">simulation</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reweight</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'hyper-maxent-model'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.hyper.HyperMaxentModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#maxent.core.MaxentModel" title="maxent.core.MaxentModel"><code class="xref py py-class docutils literal notranslate"><span class="pre">maxent.core.MaxentModel</span></code></a></p>
+<p>Keras Maximum entropy model</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>restraints</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="#maxent.core.Restraint" title="maxent.core.Restraint"><code class="xref py py-class docutils literal notranslate"><span class="pre">Restraint</span></code></a>]) – List of <code class="xref py py-class docutils literal notranslate"><span class="pre">Restraint</span></code></p></li>
+<li><p><strong>prior_model</strong> (<a class="reference internal" href="#maxent.hyper.ParameterJoint" title="maxent.hyper.ParameterJoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterJoint</span></code></a>) – <a class="reference internal" href="#maxent.hyper.ParameterJoint" title="maxent.hyper.ParameterJoint"><code class="xref py py-class docutils literal notranslate"><span class="pre">ParameterJoint</span></code></a> that specifies prior</p></li>
+<li><p><strong>simulation</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]], <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]]) – Callable that will generate observations given the output from <code class="docutils literal notranslate"><span class="pre">prior_model</span></code></p></li>
+<li><p><strong>reweight</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – True means use to remove effect of prior training updates via reweighting, which keeps as close as possible to given untrained <code class="docutils literal notranslate"><span class="pre">prior_model</span></code></p></li>
+<li><p><strong>name</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code>) – Name of model</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.hyper.HyperMaxentModel.fit">
+<span class="sig-name descname"><span class="pre">fit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sample_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">256</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_batch_multiplier</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">4</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outer_epochs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">10</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.hyper.HyperMaxentModel.fit" title="Permalink to this definition">¶</a></dt>
+<dd><p>Fit to given outcomes from <code class="docutils literal notranslate"><span class="pre">simulation</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sample_batch_size</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of observations to sample per <code class="docutils literal notranslate"><span class="pre">outer_epochs</span></code></p></li>
+<li><p><strong>final_batch_multiplier</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Sets number of final MaxEnt fitting step after training <code class="docutils literal notranslate"><span class="pre">prior_model</span></code>. Final number of MaxEnt steps will be <code class="docutils literal notranslate"><span class="pre">final_batch_multiplier</span> <span class="pre">*</span> <span class="pre">sample_batch_size</span></code></p></li>
+<li><p><strong>param_epochs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>]) – Number of times <code class="docutils literal notranslate"><span class="pre">prior_model</span></code> will be fit to sampled observations</p></li>
+<li><p><strong>outer_epochs</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of loops of sampling/<code class="docutils literal notranslate"><span class="pre">prior_model</span></code> fitting</p></li>
+<li><p><strong>kwargs</strong> – See :class:tf.keras.Model <code class="docutils literal notranslate"><span class="pre">fit</span></code> method for further optional arguments, like <code class="docutils literal notranslate"><span class="pre">verbose=0</span></code> to hide output</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-class docutils literal notranslate"><span class="pre">History</span></code></p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>The <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/callbacks/History" title="(in TensorFlow v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tf.keras.callbacks.History</span></code></a> of fit</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="maxent.hyper.ParameterJoint">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">ParameterJoint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">reshapers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">outputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.hyper.ParameterJoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.training.Model</span></code></p>
+<p>Prior parameter model joint distribution</p>
+<p>This packages up how you want to sample prior paramters into one joint distribution.
+This has an important ability of reshaping output from distributions in case your simulation requires
+matrices, applying constraints, or projections.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Input</span></code>, <code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Input</span></code>], <code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code>]) – <code class="xref py py-class docutils literal notranslate"><span class="pre">tf.keras.Input</span></code> or tuple of them.</p></li>
+<li><p><strong>outputs</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">Distribution</span></code>]]) – list of <a class="reference external" href="https://www.tensorflow.org/probability/api_docs/python/tfp/distributions/Distribution" title="(in TensorFlow Probability v0.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tfp.distributions.Distribution</span></code></a></p></li>
+<li><p><strong>reshapers</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]], <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]]]]) – optional list of callables that will be called on outputs from your distribution</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.hyper.ParameterJoint.compile">
+<span class="sig-name descname"><span class="pre">compile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.hyper.ParameterJoint.compile" title="Permalink to this definition">¶</a></dt>
+<dd><p>See <code class="docutils literal notranslate"><span class="pre">compile</span></code> method of  <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/Model" title="(in TensorFlow v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tf.keras.Model</span></code></a></p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.hyper.ParameterJoint.sample">
+<span class="sig-name descname"><span class="pre">sample</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">return_joint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.hyper.ParameterJoint.sample" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generate sample</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code>) – Number of samples (events)</p></li>
+<li><p><strong>return_joint</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code>) – return a joint <a class="reference external" href="https://www.tensorflow.org/probability/api_docs/python/tfp/distributions/Distribution" title="(in TensorFlow Probability v0.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tfp.distributions.Distribution</span></code></a> that can be called on <code class="docutils literal notranslate"><span class="pre">y</span></code></p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Tuple</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]], <code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]], <code class="xref py py-data docutils literal notranslate"><span class="pre">Any</span></code>], <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the reshaped output samples and (if <code class="docutils literal notranslate"><span class="pre">return_joint</span></code>) a value <code class="docutils literal notranslate"><span class="pre">y</span></code> which can be used to compute probabilities and <a class="reference external" href="https://www.tensorflow.org/probability/api_docs/python/tfp/distributions/Distribution" title="(in TensorFlow Probability v0.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tfp.distributions.Distribution</span></code></a> joint</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="maxent.hyper.TrainableInputLayer">
+<em class="property"><span class="pre">class</span> </em><span class="sig-name descname"><span class="pre">TrainableInputLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">initial_value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">constraint</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.hyper.TrainableInputLayer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">keras.engine.base_layer.Layer</span></code></p>
+<p>Create trainable input layer for <a class="reference external" href="https://www.tensorflow.org/probability/api_docs/python/tfp/distributions/Distribution" title="(in TensorFlow Probability v0.12)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tfp.distributions.Distribution</span></code></a></p>
+<p>This will, given a fake input, return a trainable weight set by <code class="docutils literal notranslate"><span class="pre">initial_value</span></code>. Use
+to feed into distributions that can be trained.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>initial_value</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – starting value, determines shape/dtype of output</p></li>
+<li><p><strong>constraint</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Optional</span></code>[<code class="xref py py-data docutils literal notranslate"><span class="pre">Callable</span></code>[[<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]], <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – Callable that returns scalar given output. See <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/Layer" title="(in TensorFlow v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code></a></p></li>
+<li><p><strong>kwargs</strong> – See <code class="xref py py-class docutils literal notranslate"><span class="pre">tf.Keras.layers.Layer</span></code> for additional arguments</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="maxent.hyper.TrainableInputLayer.call">
+<span class="sig-name descname"><span class="pre">call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.hyper.TrainableInputLayer.call" title="Permalink to this definition">¶</a></dt>
+<dd><p>See call of <a class="reference external" href="https://www.tensorflow.org/api_docs/python/tf/keras/layers/Layer" title="(in TensorFlow v2.0)"><code class="xref py py-class docutils literal notranslate"><span class="pre">tf.keras.layers.Layer</span></code></a></p>
+<dl class="field-list simple">
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="maxent.hyper.negloglik">
+<span class="sig-name descname"><span class="pre">negloglik</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">y</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rv_y</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#maxent.hyper.negloglik" title="Permalink to this definition">¶</a></dt>
+<dd><p>negative log likelihood</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>y</strong> (<code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]) – observations</p></li>
+<li><p><strong>rv_y</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">Distribution</span></code>) – distribution</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><code class="xref py py-data docutils literal notranslate"><span class="pre">Union</span></code>[<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">ndarray</span></code></a>, <code class="xref py py-class docutils literal notranslate"><span class="pre">TensorArray</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>, <code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code>]]</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>negative log likelihood of y</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="index.html" class="btn btn-neutral float-left" title="Getting Started" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2021, Rainier Barret, Mehrad Ansari, Andrew D White.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
