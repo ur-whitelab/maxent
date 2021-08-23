@@ -40,6 +40,9 @@ trajs = np.array(trajs)
 # here is a plot of these trajectories
 ```
 
+![image](https://user-images.githubusercontent.com/908389/130389256-2710cb73-617f-4e71-b3ba-e32bd0f85d6a.png)
+
+
 ```python
 # we want the random walk to have average end of 2,1
 rx = maxent.Restraint(lambda traj: traj[-1,0], target=2)
@@ -57,8 +60,11 @@ h = model.fit(trajs)
 # with new weights
 model.traj_weights
 
-# plot showing weight of trajectories:
+# plot showing weights of trajectories:
 ```
+
+![image](https://user-images.githubusercontent.com/908389/130389259-3a081e19-110a-4c80-9f91-3b3902444e21.png)
+
 
 ## Citation
 
