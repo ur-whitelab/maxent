@@ -35,3 +35,5 @@ jobs:
       run: jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/epidemiology.ipynb" --to notebook --output-dir='temp' --clear-output
     - name: Run Gravitation System
       run: jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/gravitation.ipynb" --to notebook --output-dir='temp' --clear-output
+    - name: Run MBP System
+      run: jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/MBP.ipynb" --to notebook --output-dir='temp' --clear-output

@@ -23,7 +23,7 @@ setup(
     description="Maximum entropy inference Keras implementation",
     long_description=read("README.md"),
     packages=find_packages(exclude=("tests",)),
-    install_requires=["numpy", "tensorflow", "tensorflow_probability"],
+    install_requires=["numpy", "tensorflow < 2.6", "tensorflow_probability"],
     classifiers=[
         "Development Status :: 2 - Pre-Alpha",
         "License :: OSI Approved :: GPL v2 License",

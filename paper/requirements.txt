@@ -9,3 +9,4 @@ seaborn
 tqdm
 jupyter
 git+git://github.com/ur-whitelab/py0.git@nature_compsci
+pynmrstar
