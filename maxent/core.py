@@ -48,7 +48,7 @@ class Restraint:
     :param prior: prior is a :class:`Prior` for expected deviation from that target
     """
 
-    def __init__(self, fxn: Callable[[Array], float], target: float, prior: Prior):
+    def __init__(self, fxn: Callable[[Array], float], target: float, prior: Prior = EmptyPrior()):
         self.target = target
         self.fxn = fxn
         self.prior = prior
@@ -62,7 +62,7 @@ class _ReweightLayerLaplace(tf.keras.layers.Layer):
 
     def __init__(self, sigmas: Array):
         super(_ReweightLayerLaplace, self).__init__()
-        l_init = tf.random_uniform_initializer(-1, 1)
+        l_init = tf.zeros_initializer()
         restraint_dim = len(sigmas)
         self.l = tf.Variable(
             initial_value=l_init(shape=(restraint_dim,), dtype="float32"),
@@ -93,7 +93,7 @@ class _ReweightLayerLaplace(tf.keras.layers.Layer):
             weights = weights * tf.reshape(input_weights, (-1,))
             weights /= tf.reduce_sum(weights)
         self.add_metric(
-            tf.reduce_sum(-weights * tf.math.log(weights + 1e-30)),
+            tf.reduce_sum(-weights * tf.math.log(weights + EPS)),
             aggregation="mean",
             name="weight-entropy",
         )
@@ -119,7 +119,7 @@ class _AvgLayerLaplace(tf.keras.layers.Layer):
         )
         return err_e_gk
 
-      
+
 class _ReweightLayer(tf.keras.layers.Layer):
     """Trainable layer containing weights for maxent method"""
 
@@ -183,6 +183,8 @@ class MaxentModel(tf.keras.Model):
         self, restraints: List[Restraint], name: str = "maxent-model", **kwargs
     ):
         super(MaxentModel, self).__init__(name=name, **kwargs)
+        if type(restraints) == Restraint:
+            restraints = [restraints]
         self.restraints = restraints
         restraint_dim = len(restraints)
         # identify prior
@@ -192,7 +194,8 @@ class MaxentModel(tf.keras.Model):
             if type(r.prior) != prior:
                 raise ValueError("Can only do restraints of one type")
         if prior == Laplace:
-            sigmas = np.array([r.prior.sigma for r in restraints], dtype=np.float32)
+            sigmas = np.array(
+                [r.prior.sigma for r in restraints], dtype=np.float32)
             self.weight_layer = _ReweightLayerLaplace(sigmas)
             self.avg_layer = _AvgLayerLaplace(self.weight_layer)
         else:
@@ -220,11 +223,20 @@ class MaxentModel(tf.keras.Model):
         wgk = self.avg_layer(inputs, weights)
         return wgk
 
+    # docstring should be filled by parent
+    def compile(self,
+                optimizer=tf.keras.optimizers.Adam(0.1), loss='mean_squared_error', metrics=None, loss_weights=None,
+                weighted_metrics=None, run_eagerly=None, steps_per_execution=None, **kwargs
+                ):
+        super(MaxentModel, self).compile(optimizer, loss, metrics, loss_weights,
+                                         weighted_metrics, run_eagerly, steps_per_execution, **kwargs)
+
     def fit(
         self,
         trajs: Array,
         input_weights: Array = None,
         batch_size: int = None,
+        epochs: int = 128,
         **kwargs
     ) -> tf.keras.callbacks.History:
         """Fit to given observations with restraints
@@ -235,6 +247,11 @@ class MaxentModel(tf.keras.Model):
         :param kwargs: See :class:tf.keras.Model ``fit`` method for further optional arguments, like ``verbose=0`` to hide output
         :return: The history of fit
         """
+
+        # process kwargs
+        if "verbose" not in kwargs:
+            kwargs["verbose"] = 0
+
         gk = _compute_restraints(trajs, self.restraints)
         inputs = gk.astype(np.float32)
         if batch_size is None:
@@ -242,7 +259,7 @@ class MaxentModel(tf.keras.Model):
         if input_weights is None:
             input_weights = tf.ones((tf.shape(gk)[0], 1))
         result = super(MaxentModel, self).fit(
-            [inputs, input_weights], tf.zeros_like(gk), batch_size=batch_size, **kwargs
+            [inputs, input_weights], tf.zeros_like(gk), batch_size=batch_size, epochs=epochs, **kwargs
         )
         self.traj_weights = self.weight_layer(inputs, input_weights)
         self.restraint_values = gk

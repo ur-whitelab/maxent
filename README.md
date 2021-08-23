@@ -19,22 +19,45 @@ pip install maxent@git+git://github.com/ur-whitelab/maxent.git
 
 ## Quick Start
 
+Here we show how to take a random walk simulator and use `maxent` to have reweight the random walk so that the average end is at x = 2, y= 1.
+
 ```python
-# assume z contains outcomes from your simulator of arbitrary shape, with first axis being batch
-z = np.random.normal(size=256).astype(np.float32)
+# simulate
+def random_walk_simulator(T=10):
+    x = [0,0]
+    traj = np.empty((T,2))
+    for i in range(T):
+        traj[i] = x
+        x += np.random.normal(size=2)
+    return traj
 
-# restrain these observations so that second moment average is 2
-r = maxent.Restraint(fxn=lambda x: x**2, target=2, prior=maxent.EmptyPrior())
+N = 500
+trajs = [random_walk_simulator() for _ in range(N)]
 
-# create model by passing in restraints as list
-model = maxent.MaxentModel([r])
+# now have N x T x 2 tensor
+trajs = np.array(trajs)
 
-# usual Keras fitting
-model.compile(tf.keras.optimizers.Adam(0.1), 'mean_squared_error')
-model.fit(z, epochs=128, verbose=0)
+# here is a plot of these trajectories
+```
 
-# now measure new mean of data, with reweighting
-mean = np.sum(z * model.traj_weights)
+```python
+# we want the random walk to have average end of 2,1
+rx = maxent.Restraint(lambda traj: traj[-1,0], target=2)
+ry = maxent.Restraint(lambda traj: traj[-1,1], target=1)
+
+# create model by passing in restraints
+model = maxent.MaxentModel([rx, ry])
+
+# convert model to be differentiable/GPU (if available)
+model.compile()
+# fit to data
+h = model.fit(trajs)
+
+# can now compute other averages properties
+# with new weights
+model.traj_weights
+
+# plot showing weight of trajectories:
 ```
 
 ## Citation
