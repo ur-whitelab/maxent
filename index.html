@@ -91,7 +91,12 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#about-maximum-entropy">About maximum entropy</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#installation">Installation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#quick-start">Quick Start</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#a-pandas-data-frame">A Pandas Data Frame</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#a-simulator">A simulator</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#variational">Variational</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#citation">Citation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
 </ul>
@@ -181,6 +186,46 @@
 </div>
 <div class="section" id="quick-start">
 <h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="a-pandas-data-frame">
+<h3>A Pandas Data Frame<a class="headerlink" href="#a-pandas-data-frame" title="Permalink to this headline">¶</a></h3>
+<p>Consider a data frame representing outcomes from our prior model/simulator. We would like to
+regress these outcomes to data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">maxent</span>
+
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Perhaps we have a single observation we would like to match. We can define it with a restraint. Let’s say
+the observation corresponds to the values in column 3.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
+<span class="k">def</span> <span class="nf">observe</span><span class="p">(</span><span class="n">single_row</span><span class="p">):</span>
+  <span class="k">return</span> <span class="n">single_row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+<span class="n">r</span> <span class="o">=</span> <span class="n">maxent</span><span class="o">.</span><span class="n">Restraint</span><span class="p">(</span><span class="n">observe</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we’ll fit using MaxEnt</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">maxent</span><span class="o">.</span><span class="n">MaxentModel</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">model</span><span class="o">.</span><span class="n">compile</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We now have a set of weights – one per row – that we can use to compute other expressions.
+For example, here is the most likely outcome (mode)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">traj_weights</span><span class="p">)</span>
+<span class="n">mode</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:]</span>
+</pre></div>
+</div>
+<p>Here are the new column averages</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">col_avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">traj_weights</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="a-simulator">
+<h3>A simulator<a class="headerlink" href="#a-simulator" title="Permalink to this headline">¶</a></h3>
 <p>Here we show how to take a random walk simulator and use <code class="docutils literal notranslate"><span class="pre">maxent</span></code> to have reweight the random walk so that the average end is at x = 2, y= 1.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># simulate</span>
 <span class="k">def</span> <span class="nf">random_walk_simulator</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
@@ -221,6 +266,11 @@
 </pre></div>
 </div>
 <p><img alt="image" src="https://user-images.githubusercontent.com/908389/130389259-3a081e19-110a-4c80-9f91-3b3902444e21.png" /></p>
+</div>
+</div>
+<div class="section" id="variational">
+<h2>Variational<a class="headerlink" href="#variational" title="Permalink to this headline">¶</a></h2>
+<p>You can do variational inference with MaxEnt if your simulator is not close to observations. Check out the <code class="docutils literal notranslate"><span class="pre">paper/</span></code> examples.</p>
 </div>
 <div class="section" id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
