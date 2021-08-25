@@ -19,6 +19,53 @@ pip install maxent@git+git://github.com/ur-whitelab/maxent.git
 
 ## Quick Start
 
+### A Pandas Data Frame
+
+Consider a data frame representing outcomes from our prior model/simulator. We would like to
+regress these outcomes to data.
+
+```python
+import pandas as pd
+import numpy as np
+import maxent
+
+
+data = pd.read_csv('data.csv')
+```
+
+Perhaps we have a single observation we would like to match. We can define it with a restraint. Let's say
+the observation corresponds to the values in column 3.
+
+```python
+
+def observe(single_row):
+  return single_row[3]
+
+r = maxent.Restraint(observe, target=1.5)
+```
+
+Now we'll fit using MaxEnt
+```python
+model = maxent.MaxentModel(r)
+model.compile()
+model.fit(data.values)
+```
+
+We now have a set of weights -- one per row -- that we can use to compute other expressions.
+For example, here is the most likely outcome (mode)
+
+```python
+i = np.argmax(model.traj_weights)
+mode = data.iloc[i, :]
+```
+
+Here are the new column averages
+```python
+col_avg = np.sum(data.values * model.traj_weights[:, np.newaxis], axis=0)
+```
+
+### A simulator
+
 Here we show how to take a random walk simulator and use `maxent` to have reweight the random walk so that the average end is at x = 2, y= 1.
 
 ```python
@@ -65,6 +112,10 @@ model.traj_weights
 
 ![image](https://user-images.githubusercontent.com/908389/130389259-3a081e19-110a-4c80-9f91-3b3902444e21.png)
 
+
+## Variational
+
+You can do variational inference with MaxEnt if your simulator is not close to observations. Check out the `paper/` examples.
 
 ## Citation
 
