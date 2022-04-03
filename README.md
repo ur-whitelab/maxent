@@ -1,8 +1,8 @@
 # Maximum Entropy Inference
 
 [![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ur-whitelab/exmol)
-![tests](https://github.com/ur-whitelab/maxent/actions/workflows/test.yml/badge.svg) 
-![paper](https://github.com/ur-whitelab/maxent/actions/workflows/paper.yml/badge.svg) 
+![tests](https://github.com/ur-whitelab/maxent/actions/workflows/test.yml/badge.svg)
+![paper](https://github.com/ur-whitelab/maxent/actions/workflows/paper.yml/badge.svg)
 [![docs](https://github.com/ur-whitelab/maxent/actions/workflows/docs.yml/badge.svg)](https://ur-whitelab.github.io/maxent/)
 [![PyPI version](https://badge.fury.io/py/maxent-infer.svg)](https://badge.fury.io/py/maxent-infer)
 
@@ -19,6 +19,7 @@ pip install maxent-infer
 ```
 
 ## Quick Start
+
 
 ### A Pandas Data Frame
 
