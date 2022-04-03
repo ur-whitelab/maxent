@@ -55,15 +55,14 @@ class ParameterJoint(tf.keras.Model):
         **kwargs
     ):
         if inputs is None or outputs is None:
-            raise ValueError('Must pass inputs and outputs to construct model')
+            raise ValueError("Must pass inputs and outputs to construct model")
         if reshapers:
             self.reshapers = reshapers
             self.output_count = len(reshapers)
         else:
             self.output_count = len(outputs)
             self.reshapers = [lambda x: x for _ in range(self.output_count)]
-        super(ParameterJoint, self).__init__(
-            inputs=inputs, outputs=outputs, **kwargs)
+        super(ParameterJoint, self).__init__(inputs=inputs, outputs=outputs, **kwargs)
 
     def compile(self, optimizer: object, **kwargs):
         """See ``compile`` method of  :class:`tf.keras.Model`"""
@@ -100,8 +99,7 @@ def _reweight(
     logit = tf.zeros((batch_dim,))
     for i, (uj, j) in enumerate(zip(unbiased_joint, joint)):
         # reduce across other axis (summing independent variable log ps)
-        logitdiff = uj.log_prob(
-            samples[i] + EPS) - j.log_prob(samples[i] + EPS)
+        logitdiff = uj.log_prob(samples[i] + EPS) - j.log_prob(samples[i] + EPS)
         logit += tf.reduce_sum(tf.reshape(logitdiff, (batch_dim, -1)), axis=1)
     return tf.math.softmax(logit)
 
@@ -116,6 +114,7 @@ class TrainableInputLayer(tf.keras.layers.Layer):
     :param constraint: Callable that returns scalar given output. See :py:class:`tf.keras.layers.Layer`
     :param kwargs: See :py:class:`tf.Keras.layers.Layer` for additional arguments
     """
+
     def __init__(
         self,
         initial_value: Array,
@@ -139,8 +138,7 @@ class TrainableInputLayer(tf.keras.layers.Layer):
         batch_dim = tf.shape(inputs)[:1]
         return tf.tile(
             self.w[tf.newaxis, ...],
-            tf.concat(
-                (batch_dim, tf.ones(tf.rank(self.w), dtype=tf.int32)), axis=0),
+            tf.concat((batch_dim, tf.ones(tf.rank(self.w), dtype=tf.int32)), axis=0),
         )
 
 
@@ -153,6 +151,7 @@ class HyperMaxentModel(MaxentModel):
     :param reweight: True means use to remove effect of prior training updates via reweighting, which keeps as close as possible to given untrained ``prior_model``
     :param name: Name of model
     """
+
     def __init__(
         self,
         restraints: List[Restraint],
@@ -218,16 +217,17 @@ class HyperMaxentModel(MaxentModel):
                 param_epochs = kwargs["epochs"]
         for i in range(outer_epochs - 1):
             # sample parameters
-            psample, y, joint = self.prior_model.sample(
-                sample_batch_size, True)
+            psample, y, joint = self.prior_model.sample(sample_batch_size, True)
             trajs = self.simulation(*psample)
             try:
                 if trajs.shape[0] != sample_batch_size:
                     raise ValueError(
-                        'Simulation must take in batched samples and return batched outputs')
+                        "Simulation must take in batched samples and return batched outputs"
+                    )
             except TypeError as e:
                 raise ValueError(
-                    'Simulation must take in batched samples and return batched outputs')
+                    "Simulation must take in batched samples and return batched outputs"
+                )
             # get reweight, so we keep original parameter
             # probs
             rw = _reweight(y, self.unbiased_joint, joint)
@@ -255,8 +255,7 @@ class HyperMaxentModel(MaxentModel):
         outs = []
         rws = []
         for i in range(final_batch_multiplier):
-            psample, y, joint = self.prior_model.sample(
-                sample_batch_size, True)
+            psample, y, joint = self.prior_model.sample(sample_batch_size, True)
             trajs = self.simulation(*psample)
             outs.append(trajs)
             rw = _reweight(y, self.unbiased_joint, joint)

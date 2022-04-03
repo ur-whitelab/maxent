@@ -33,7 +33,7 @@ extensions = [
     "sphinx_autodoc_typehints",
     "sphinx.ext.autosectionlabel",
     "sphinx.ext.intersphinx",
-    'sphinx.ext.githubpages'
+    "sphinx.ext.githubpages",
 ]
 
 # Add any paths that contain templates here, relative to this directory.
@@ -66,12 +66,15 @@ intersphinx_mapping = {
         "https://www.tensorflow.org/api_docs/python",
         "https://github.com/mr-ubik/tensorflow-intersphinx/raw/master/tf2_py_objects.inv",
     ),
-    "tensorflow_probability": ("https://www.tensorflow.org/probability/api_docs/python", "https://github.com/GPflow/tensorflow-intersphinx/raw/master/tfp_py_objects.inv"),
+    "tensorflow_probability": (
+        "https://www.tensorflow.org/probability/api_docs/python",
+        "https://github.com/GPflow/tensorflow-intersphinx/raw/master/tfp_py_objects.inv",
+    ),
     "matplotlib": ("https://matplotlib.org/stable/", None),
     "numpy": ("https://numpy.org/doc/stable/", None),
 }
 
-master_doc = 'toc'
+master_doc = "toc"
 
 myst_enable_extensions = [
     "amsmath",

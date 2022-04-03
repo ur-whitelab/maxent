@@ -37,7 +37,7 @@ class Laplace(Prior):
         self.sigma = sigma
 
     def expected(self, l: float) -> float:
-        return -1.0 * l * self.sigma ** 2 / (1.0 - l ** 2 * self.sigma ** 2 / 2)
+        return -1.0 * l * self.sigma**2 / (1.0 - l**2 * self.sigma**2 / 2)
 
 
 class Restraint:
@@ -48,7 +48,9 @@ class Restraint:
     :param prior: prior is a :class:`Prior` for expected deviation from that target
     """
 
-    def __init__(self, fxn: Callable[[Array], float], target: float, prior: Prior = EmptyPrior()):
+    def __init__(
+        self, fxn: Callable[[Array], float], target: float, prior: Prior = EmptyPrior()
+    ):
         self.target = target
         self.fxn = fxn
         self.prior = prior
@@ -114,8 +116,8 @@ class _AvgLayerLaplace(tf.keras.layers.Layer):
         e_gk = tf.reduce_sum(gk * weights[:, tf.newaxis], axis=0)
         # add laplace term
         # cannot rely on mask due to no clip
-        err_e_gk = e_gk + -1.0 * self.rl.l * self.rl.sigmas ** 2 / (
-            1.0 - self.rl.l ** 2 * self.rl.sigmas ** 2 / 2
+        err_e_gk = e_gk + -1.0 * self.rl.l * self.rl.sigmas**2 / (
+            1.0 - self.rl.l**2 * self.rl.sigmas**2 / 2
         )
         return err_e_gk
 
@@ -194,8 +196,7 @@ class MaxentModel(tf.keras.Model):
             if type(r.prior) != prior:
                 raise ValueError("Can only do restraints of one type")
         if prior == Laplace:
-            sigmas = np.array(
-                [r.prior.sigma for r in restraints], dtype=np.float32)
+            sigmas = np.array([r.prior.sigma for r in restraints], dtype=np.float32)
             self.weight_layer = _ReweightLayerLaplace(sigmas)
             self.avg_layer = _AvgLayerLaplace(self.weight_layer)
         else:
@@ -224,13 +225,28 @@ class MaxentModel(tf.keras.Model):
         return wgk
 
     # docstring from parent uses special sphinx stuff we cannot replicate
-    def compile(self,
-                optimizer=tf.keras.optimizers.Adam(0.1), loss='mean_squared_error', metrics=None, loss_weights=None,
-                weighted_metrics=None, run_eagerly=None, steps_per_execution=None, **kwargs
-                ):
+    def compile(
+        self,
+        optimizer=tf.keras.optimizers.Adam(0.1),
+        loss="mean_squared_error",
+        metrics=None,
+        loss_weights=None,
+        weighted_metrics=None,
+        run_eagerly=None,
+        steps_per_execution=None,
+        **kwargs
+    ):
         """See ``compile`` method of  :class:`tf.keras.Model`"""
-        super(MaxentModel, self).compile(optimizer, loss, metrics, loss_weights,
-                                         weighted_metrics, run_eagerly, steps_per_execution, **kwargs)
+        super(MaxentModel, self).compile(
+            optimizer,
+            loss,
+            metrics,
+            loss_weights,
+            weighted_metrics,
+            run_eagerly,
+            steps_per_execution,
+            **kwargs
+        )
 
     def fit(
         self,
@@ -260,7 +276,11 @@ class MaxentModel(tf.keras.Model):
         if input_weights is None:
             input_weights = tf.ones((tf.shape(gk)[0], 1))
         result = super(MaxentModel, self).fit(
-            [inputs, input_weights], tf.zeros_like(gk), batch_size=batch_size, epochs=epochs, **kwargs
+            [inputs, input_weights],
+            tf.zeros_like(gk),
+            batch_size=batch_size,
+            epochs=epochs,
+            **kwargs
         )
         self.traj_weights = self.weight_layer(inputs, input_weights)
         self.restraint_values = gk

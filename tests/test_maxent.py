@@ -20,7 +20,7 @@ class TestPriors(unittest.TestCase):
         p = maxent.Laplace(0.1)
 
     def test_restraint(self):
-        r = maxent.Restraint(lambda x: x ** 2, 4, maxent.EmptyPrior())
+        r = maxent.Restraint(lambda x: x**2, 4, maxent.EmptyPrior())
         assert r(2) == 0
 
 
@@ -53,22 +53,22 @@ class TestLayers(unittest.TestCase):
 class TestModel(unittest.TestCase):
     def test_me(self):
         data = np.random.normal(size=256).astype(np.float32)
-        r = maxent.Restraint(lambda x: x ** 2, 2, maxent.EmptyPrior())
+        r = maxent.Restraint(lambda x: x**2, 2, maxent.EmptyPrior())
         model = maxent.MaxentModel([r])
         model.compile(tf.keras.optimizers.Adam(0.1), "mean_squared_error")
         model.fit(data, epochs=128, verbose=0)
         # check we fit somewhat close
-        e = np.sum(data ** 2 * model.traj_weights)
+        e = np.sum(data**2 * model.traj_weights)
         npt.assert_array_almost_equal(e, 2.0, decimal=2)
 
     def test_lme(self):
         data = np.random.normal(size=256).astype(np.float32)
-        r = maxent.Restraint(lambda x: x ** 2, 2, maxent.Laplace(0.01))
+        r = maxent.Restraint(lambda x: x**2, 2, maxent.Laplace(0.01))
         model = maxent.MaxentModel([r])
         model.compile(tf.keras.optimizers.Adam(0.1), "mean_squared_error")
         model.fit(data, epochs=128, verbose=0)
         # check we fit somewhat close
-        e = np.sum(data ** 2 * model.traj_weights)
+        e = np.sum(data**2 * model.traj_weights)
         npt.assert_array_almost_equal(e, 2.0, decimal=1)
 
 
@@ -89,7 +89,7 @@ class TestHyperModel(unittest.TestCase):
         # make a model for sampling parameters
         x = np.array([1.0, 1.0])
         tf.random.set_seed(0)
-  
+
         i = tf.keras.Input((1,))
         l = maxent.TrainableInputLayer(x)(i)
         d = tfp.layers.DistributionLambda(
@@ -111,14 +111,14 @@ class TestHyperModel(unittest.TestCase):
         e = np.sum(hme_model.trajs[:, 0] * hme_model.traj_weights)
         assert abs(e - 8.0) < 0.25
 
-
     def test_error(self):
         # make a model for sampling parameters
-        x = np.array([1., 1.])
+        x = np.array([1.0, 1.0])
         i = tf.keras.Input((1,))
         l = maxent.TrainableInputLayer(x)(i)
-        d = tfp.layers.DistributionLambda(lambda x: tfd.Normal(
-            loc=x[..., 0], scale=tf.math.exp(x[..., 1])))(l)
+        d = tfp.layers.DistributionLambda(
+            lambda x: tfd.Normal(loc=x[..., 0], scale=tf.math.exp(x[..., 1]))
+        )(l)
         model = maxent.ParameterJoint([lambda x: x], inputs=i, outputs=[d])
         model.compile(tf.keras.optimizers.Adam(0.1))
 
