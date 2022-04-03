@@ -28,7 +28,7 @@ author = "Rainier Barret, Mehrad Ansari, Andrew D White"
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    "myst_parser",
+    "myst_nb",
     "sphinx.ext.autodoc",
     "sphinx_autodoc_typehints",
     "sphinx.ext.autosectionlabel",
@@ -57,11 +57,6 @@ html_context = {
     "commit": False,
 }
 
-# Add any paths that contain custom static files (such as style sheets) here,
-# relative to this directory. They are copied after the builtin static files,
-# so a file named "default.css" will overwrite the builtin "default.css".
-html_static_path = ["_static"]
-
 
 autosectionlabel_prefix_document = True
 add_module_names = False
@@ -77,3 +72,13 @@ intersphinx_mapping = {
 }
 
 master_doc = 'toc'
+
+myst_enable_extensions = [
+    "amsmath",
+    "colon_fence",
+    "deflist",
+    "dollarmath",
+    "html_image",
+]
+myst_url_schemes = ["http", "https", "mailto"]
+execution_timeout = -1

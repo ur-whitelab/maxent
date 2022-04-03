@@ -168,7 +168,7 @@ def _compute_restraints(trajs, restraints):
     K = len(restraints)
     gk = np.empty((N, K))
     for i in range(N):
-        gk[i, :] = [r(trajs[i]) for r in restraints]
+        gk[i, :] = np.array([r(trajs[i]) for r in restraints])
     return gk
 
 
@@ -223,11 +223,12 @@ class MaxentModel(tf.keras.Model):
         wgk = self.avg_layer(inputs, weights)
         return wgk
 
-    # docstring should be filled by parent
+    # docstring from parent uses special sphinx stuff we cannot replicate
     def compile(self,
                 optimizer=tf.keras.optimizers.Adam(0.1), loss='mean_squared_error', metrics=None, loss_weights=None,
                 weighted_metrics=None, run_eagerly=None, steps_per_execution=None, **kwargs
                 ):
+        """See ``compile`` method of  :class:`tf.keras.Model`"""
         super(MaxentModel, self).compile(optimizer, loss, metrics, loss_weights,
                                          weighted_metrics, run_eagerly, steps_per_execution, **kwargs)
 
