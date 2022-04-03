@@ -1,6 +1,6 @@
 # Maximum Entropy Inference
 
-[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ur-whitelab/exmol)
+[![GitHub](https://img.shields.io/badge/github-%23121011.svg?style=for-the-badge&logo=github&logoColor=white)](https://github.com/ur-whitelab/maxent)
 ![tests](https://github.com/ur-whitelab/maxent/actions/workflows/test.yml/badge.svg)
 ![paper](https://github.com/ur-whitelab/maxent/actions/workflows/paper.yml/badge.svg)
 [![docs](https://github.com/ur-whitelab/maxent/actions/workflows/docs.yml/badge.svg)](https://ur-whitelab.github.io/maxent/)
@@ -35,8 +35,7 @@ import maxent
 data = pd.read_csv('data.csv')
 ```
 
-Perhaps we have a single observation we would like to match. We can define it with a restraint. Let's say
-the observation corresponds to the values in column 3.
+Perhaps we have a single observation we would like to match. We can agree with an observation by specifying to things: a function to compute the observation from outcomes of our prior/simulator and the target value. As a simple example, let's say our observation is just the 3rd column in a row that came from one outcome:
 
 ```python
 
@@ -46,7 +45,13 @@ def observe(single_row):
 r = maxent.Restraint(observe, target=1.5)
 ```
 
-Now we'll fit using MaxEnt
+We could instead of used a mean over the row or any other function. Do you have uncertainty with your observation? No problem. Here we specify our uncertainty is Laplace distributed with a variance of 2 (Laplace scale parameter 1):
+
+```python
+r = maxent.Restraint(observe, target=1.5, prior=maxent.Laplace(1))
+```
+
+Now we'll fit our outcomes to the single observation.
 ```python
 model = maxent.MaxentModel(r)
 model.compile()
@@ -114,10 +119,13 @@ model.traj_weights
 
 ![image](https://user-images.githubusercontent.com/908389/130389259-3a081e19-110a-4c80-9f91-3b3902444e21.png)
 
-
 ## Further Examples
 
 You can find the examples used in the manuscript, including comparisons with competing methods: [here](https://ur-whitelab.github.io/maxent/toc.html). These examples use the latest package versions, so the figures will not exactly match those in the manuscript. If you would like to reproduce the manuscript exactly, install the packages in `paper/requirements.txt` and execute the notebooks in `paper` (this is the output from the `paper` workflow above).
+
+## API
+
+[API](https://ur-whitelab.github.io/maxent/api.html)
 
 ## Citation
 
