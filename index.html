@@ -1,73 +1,41 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="en" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Getting Started &mdash; maxent  documentation</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="_static/togglebutton.css" type="text/css" />
+      <link rel="stylesheet" href="_static/mystnb.css" type="text/css" />
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
         <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+        <script>let toggleHintShow = 'Click to show';</script>
+        <script>let toggleHintHide = 'Click to hide';</script>
+        <script>let toggleOpenOnPrint = 'true';</script>
+        <script src="_static/togglebutton.js"></script>
+        <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="API" href="api.html" />
+    <link rel="next" title="Gaussian Distribution Example" href="paper/gaussian.html" />
     <link rel="prev" title="maxent" href="toc.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="toc.html" class="icon icon-home"> maxent
-          
-
-          
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
     <input type="text" name="q" placeholder="Search docs" />
@@ -75,18 +43,7 @@
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Getting Started</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#about-maximum-entropy">About maximum entropy</a></li>
@@ -96,100 +53,60 @@
 <li class="toctree-l3"><a class="reference internal" href="#a-simulator">A simulator</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="#variational">Variational</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#further-examples">Further Examples</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#citation">Citation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#license">License</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="paper/gaussian.html">Gaussian Distribution Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="paper/gravitation.html">Gravitation Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="paper/epidemiology.html">Epidemiology Example</a></li>
+<li class="toctree-l1"><a class="reference internal" href="paper/MBP.html">MBP Protein NMR Example</a></li>
 <li class="toctree-l1"><a class="reference internal" href="api.html">API</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="toc.html">maxent</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="toc.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Getting Started</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            
               <a href="https://github.com///blob/index.md" class="fa fa-github"> Edit on GitHub</a>
-            
-          
-        
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="tex2jax_ignore mathjax_ignore section" id="getting-started">
-<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
-<p><img alt="tests" src="https://github.com/ur-whitelab/maxent/actions/workflows/test.yml/badge.svg" /> <img alt="paper" src="https://github.com/ur-whitelab/maxent/actions/workflows/paper.yml/badge.svg" /> <img alt="docs" src="https://github.com/ur-whitelab/maxent/actions/workflows/docs.yml/badge.svg" /></p>
+             
+  <section class="tex2jax_ignore mathjax_ignore" id="getting-started">
+<h1>Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline"></a></h1>
+<p><img alt="tests" src="https://github.com/ur-whitelab/maxent/actions/workflows/test.yml/badge.svg" /> <img alt="paper" src="https://github.com/ur-whitelab/maxent/actions/workflows/paper.yml/badge.svg" /> <a class="reference external" href="https://ur-whitelab.github.io/maxent/"><img alt="docs" src="https://github.com/ur-whitelab/maxent/actions/workflows/docs.yml/badge.svg" /></a></p>
 <p>This provides a Keras implementation of maximum entropy simulation based inference. The point of this package is to reweight outcomes from a simulator to agree with observations, rather than trying to optimize your simulators input parameters. The simulator must necessarily give multiple outcomes - either because you’re trying multiple sets of input parameters or it has intrinsic noise. The assumption of this model is that your simulator is approximately correct. The observations being fit could have come the distribution of outcomes of your simulator.</p>
-<div class="section" id="about-maximum-entropy">
-<h2>About maximum entropy<a class="headerlink" href="#about-maximum-entropy" title="Permalink to this headline">¶</a></h2>
+<section id="about-maximum-entropy">
+<h2>About maximum entropy<a class="headerlink" href="#about-maximum-entropy" title="Permalink to this headline"></a></h2>
 <p>Maximum entropy reweighting is a straightforward black box method that can be applied to arbitrary simulators with few observations. Its runtime is independent of the number of parameters used by the simulator, and it has been shown analytically to minimally change the prior to agree with observations. This method fills a niche in the small-data, high-complexity regime of SBI parameter inference, because it accurately and minimally biases a prior to match observations and does not scale in runtime with the number of model parameters.</p>
-</div>
-<div class="section" id="installation">
-<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h2>
-<p>The package uses Keras (Tensorflow). To install:</p>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install maxent@git+git://github.com/ur-whitelab/maxent.git
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install maxent
 </pre></div>
 </div>
-</div>
-<div class="section" id="quick-start">
-<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="a-pandas-data-frame">
-<h3>A Pandas Data Frame<a class="headerlink" href="#a-pandas-data-frame" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="quick-start">
+<h2>Quick Start<a class="headerlink" href="#quick-start" title="Permalink to this headline"></a></h2>
+<section id="a-pandas-data-frame">
+<h3>A Pandas Data Frame<a class="headerlink" href="#a-pandas-data-frame" title="Permalink to this headline"></a></h3>
 <p>Consider a data frame representing outcomes from our prior model/simulator. We would like to
 regress these outcomes to data.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -225,9 +142,9 @@ For example, here is the most likely outcome (mode)</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">col_avg</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">values</span> <span class="o">*</span> <span class="n">model</span><span class="o">.</span><span class="n">traj_weights</span><span class="p">[:,</span> <span class="n">np</span><span class="o">.</span><span class="n">newaxis</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="a-simulator">
-<h3>A simulator<a class="headerlink" href="#a-simulator" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="a-simulator">
+<h3>A simulator<a class="headerlink" href="#a-simulator" title="Permalink to this headline"></a></h3>
 <p>Here we show how to take a random walk simulator and use <code class="docutils literal notranslate"><span class="pre">maxent</span></code> to have reweight the random walk so that the average end is at x = 2, y= 1.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># simulate</span>
 <span class="k">def</span> <span class="nf">random_walk_simulator</span><span class="p">(</span><span class="n">T</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
@@ -268,79 +185,61 @@ For example, here is the most likely outcome (mode)</p>
 </pre></div>
 </div>
 <p><img alt="image" src="https://user-images.githubusercontent.com/908389/130389259-3a081e19-110a-4c80-9f91-3b3902444e21.png" /></p>
-</div>
-</div>
-<div class="section" id="variational">
-<h2>Variational<a class="headerlink" href="#variational" title="Permalink to this headline">¶</a></h2>
-<p>You can do variational inference with MaxEnt if your simulator is not close to observations. Check out the <code class="docutils literal notranslate"><span class="pre">paper/</span></code> examples.</p>
-</div>
-<div class="section" id="citation">
-<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline">¶</a></h2>
-<p><a class="reference external" href="https://arxiv.org/abs/2104.09668">Barrett, Rainier, et al. “Simulation-Based Inference with Approximately Correct Parameters via Maximum Entropy.” arXiv preprint arXiv:2104.09668 (2021).</a></p>
-<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">barrett2021simulation</span><span class="p">,</span>
-  <span class="na">title</span><span class="p">=</span><span class="s">{Simulation-Based Inference with Approximately Correct Parameters via Maximum Entropy}</span><span class="p">,</span>
-  <span class="na">author</span><span class="p">=</span><span class="s">{Barrett, Rainier and Ansari, Mehrad and Ghoshal, Gourab and White, Andrew D}</span><span class="p">,</span>
-  <span class="na">journal</span><span class="p">=</span><span class="s">{arXiv preprint arXiv:2104.09668}</span><span class="p">,</span>
-  <span class="na">year</span><span class="p">=</span><span class="s">{2021}</span>
-<span class="p">}</span>
+</section>
+</section>
+<section id="further-examples">
+<h2>Further Examples<a class="headerlink" href="#further-examples" title="Permalink to this headline"></a></h2>
+<p>You can find the examples used in the manuscript [here]<a class="reference external" href="https://ur-whitelab.github.io/maxent/toc.html">(https://ur-whitee)</a>. These examples use the latest package versions, so the figures will not exactly match those in the manuscript. If you would like to reproduce the manuscript exactly, install the packages in <code class="docutils literal notranslate"><span class="pre">paper/requirements.txt</span></code> and execute the notebookes in <code class="docutils literal notranslate"><span class="pre">paper</span></code>.</p>
+</section>
+<section id="citation">
+<h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline"></a></h2>
+<p><a class="reference external" href="https://arxiv.org/abs/2104.09668">Preprint</a>. Citation:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">barrett2022simulation</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{Simulation-Based Inference with Approximately Correct Parameters via Maximum Entropy}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Barrett, Rainier and Ansari, Mehrad and Ghoshal, Gourab and White, Andrew D}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">journal</span><span class="p">=</span><span class="s">{Machine Learning: Science and Technology}</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2022}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-</div>
-<div class="section" id="license">
-<h2>License<a class="headerlink" href="#license" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Permalink to this headline"></a></h2>
 <p><a class="reference external" href="https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html"><img alt="License: GPL v2" src="https://img.shields.io/badge/License-GPL%20v2-blue.svg" /></a></p>
-</div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="toc.html" class="btn btn-neutral float-left" title="maxent" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="paper/gaussian.html" class="btn btn-neutral float-right" title="Gaussian Distribution Example" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; Copyright 2021, Rainier Barret, Mehrad Ansari, Andrew D White.
-      <span class="lastupdated">
-        Last updated on True.
-      </span>
-
-    </p>
+    <p>&#169; Copyright 2021, Rainier Barret, Mehrad Ansari, Andrew D White.
+      <span class="lastupdated">Last updated on True.
+      </span></p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
     <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>
