@@ -7,3 +7,5 @@ sbi
 pynmrstar
 git+https://github.com/ur-whitelab/py0.git@nature_compsci
 pyabc
+seaborn
+scipy <= 1.8.0
