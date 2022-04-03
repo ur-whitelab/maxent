@@ -2,3 +2,8 @@ sphinx
 myst-parser
 sphinx-rtd-theme
 sphinx_autodoc_typehints
+myst-nb
+sbi
+pynmrstar
+git+https://github.com/ur-whitelab/py0.git@nature_compsci
+pyabc

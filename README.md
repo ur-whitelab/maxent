@@ -1,7 +1,7 @@
 # Maximum Entropy Simulation Based Inference
 
 
-![tests](https://github.com/ur-whitelab/maxent/actions/workflows/test.yml/badge.svg) ![paper](https://github.com/ur-whitelab/maxent/actions/workflows/paper.yml/badge.svg) ![docs](https://github.com/ur-whitelab/maxent/actions/workflows/docs.yml/badge.svg)
+![tests](https://github.com/ur-whitelab/maxent/actions/workflows/test.yml/badge.svg) ![paper](https://github.com/ur-whitelab/maxent/actions/workflows/paper.yml/badge.svg) [![docs](https://github.com/ur-whitelab/maxent/actions/workflows/docs.yml/badge.svg)](https://ur-whitelab.github.io/maxent/)
 
 This provides a Keras implementation of maximum entropy simulation based inference. The point of this package is to reweight outcomes from a simulator to agree with observations, rather than trying to optimize your simulators input parameters. The simulator must necessarily give multiple outcomes - either because you're trying multiple sets of input parameters or it has intrinsic noise. The assumption of this model is that your simulator is approximately correct. The observations being fit could have come the distribution of outcomes of your simulator.
 
@@ -11,10 +11,8 @@ Maximum entropy reweighting is a straightforward black box method that can be ap
 
 ## Installation
 
-The package uses Keras (Tensorflow). To install:
-
 ```sh
-pip install maxent@git+git://github.com/ur-whitelab/maxent.git
+pip install maxent
 ```
 
 ## Quick Start
@@ -113,20 +111,20 @@ model.traj_weights
 ![image](https://user-images.githubusercontent.com/908389/130389259-3a081e19-110a-4c80-9f91-3b3902444e21.png)
 
 
-## Variational
+## Further Examples
 
-You can do variational inference with MaxEnt if your simulator is not close to observations. Check out the `paper/` examples.
+You can find the examples used in the manuscript [here][(https://ur-whitee)](https://ur-whitelab.github.io/maxent/toc.html). These examples use the latest package versions, so the figures will not exactly match those in the manuscript. If you would like to reproduce the manuscript exactly, install the packages in `paper/requirements.txt` and execute the notebookes in `paper`.
 
 ## Citation
 
-[Barrett, Rainier, et al. "Simulation-Based Inference with Approximately Correct Parameters via Maximum Entropy." arXiv preprint arXiv:2104.09668 (2021).](https://arxiv.org/abs/2104.09668)
+[Preprint](https://arxiv.org/abs/2104.09668). Citation:
 
 ```bibtex
-@article{barrett2021simulation,
+@article{barrett2022simulation,
   title={Simulation-Based Inference with Approximately Correct Parameters via Maximum Entropy},
   author={Barrett, Rainier and Ansari, Mehrad and Ghoshal, Gourab and White, Andrew D},
-  journal={arXiv preprint arXiv:2104.09668},
-  year={2021}
+  journal={Machine Learning: Science and Technology},
+  year={2022}
 }
 ```
 
