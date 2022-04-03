@@ -113,11 +113,11 @@ model.traj_weights
 
 ## Further Examples
 
-You can find the examples used in the manuscript [here][(https://ur-whitee)](https://ur-whitelab.github.io/maxent/toc.html). These examples use the latest package versions, so the figures will not exactly match those in the manuscript. If you would like to reproduce the manuscript exactly, install the packages in `paper/requirements.txt` and execute the notebookes in `paper`.
+You can find the examples used in the manuscript, including comparisons with competing methods: [here](https://ur-whitelab.github.io/maxent/toc.html). These examples use the latest package versions, so the figures will not exactly match those in the manuscript. If you would like to reproduce the manuscript exactly, install the packages in `paper/requirements.txt` and execute the notebooks in `paper` (this is the output from the `paper` workflow above).
 
 ## Citation
 
-[Preprint](https://arxiv.org/abs/2104.09668). Citation:
+[See preprint](https://arxiv.org/abs/2104.09668) and the citation:
 
 ```bibtex
 @article{barrett2022simulation,
