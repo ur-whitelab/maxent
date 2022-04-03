@@ -17,33 +17,108 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
-import maxent
-import maxentep as py0
-import tensorflow as tf
-tf.get_logger().setLevel('INFO')
-import matplotlib.pyplot as plt
-import numpy as np
-import seaborn as sns
-import pyabc
-os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-sns.set_context('paper')
-from tqdm import tqdm
-from functools import partialmethod
+if not USE_CACHED_RESULTS:
+    C = len(compartments)
+    start = np.zeros((M, C))
+    start[0, 1] = 0.001
+    start[0, 2] = 0.001
+    beta_start = 0.1
+    infect = py0.ContactInfectionLayer(beta_start, infections_compartments)
+    # make "agreement" function
+    def agreement(traj, rs=restraints):
+        s = 0
+        for r in rs:
+            s += r(traj[0]) ** 2
+        return s
 
-tqdm.__init__ = partialmethod(tqdm.__init__, disable=True)
+    rmodel = py0.TrainableMetaModel(
+        start, R_norm, tmat.value, infect, timesteps, agreement
+    )
+    rmodel.compile(optimizer=tf.keras.optimizers.Nadam(0.01))
+    utraj = rmodel.get_traj()
+    rmodel.fit(timesteps)
+    regressed_traj = rmodel.get_traj()
+    np.save("epidemiology_files/ls_biased_traj", regressed_traj)
+else:
+    regressed_traj = np.load("epidemiology_files/ls_biased_traj.npy")
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
-[0;31mModuleNotFoundError[0m                       Traceback (most recent call last)
-Input [0;32mIn [2][0m, in [0;36m<cell line: 9>[0;34m()[0m
-[1;32m      7[0m [38;5;28;01mimport[39;00m [38;5;21;01mmatplotlib[39;00m[38;5;21;01m.[39;00m[38;5;21;01mpyplot[39;00m [38;5;28;01mas[39;00m [38;5;21;01mplt[39;00m
-[1;32m      8[0m [38;5;28;01mimport[39;00m [38;5;21;01mnumpy[39;00m [38;5;28;01mas[39;00m [38;5;21;01mnp[39;00m
-[0;32m----> 9[0m [38;5;28;01mimport[39;00m [38;5;21;01mseaborn[39;00m [38;5;28;01mas[39;00m [38;5;21;01msns[39;00m
-[1;32m     10[0m [38;5;28;01mimport[39;00m [38;5;21;01mpyabc[39;00m
-[1;32m     11[0m os[38;5;241m.[39menviron[[38;5;124m"[39m[38;5;124mCUDA_VISIBLE_DEVICES[39m[38;5;124m"[39m] [38;5;241m=[39m [38;5;124m"[39m[38;5;124m-1[39m[38;5;124m"[39m
+[0;31mValueError[0m                                Traceback (most recent call last)
+Input [0;32mIn [11][0m, in [0;36m<cell line: 1>[0;34m()[0m
+[1;32m     18[0m rmodel[38;5;241m.[39mcompile(optimizer[38;5;241m=[39mtf[38;5;241m.[39mkeras[38;5;241m.[39moptimizers[38;5;241m.[39mNadam([38;5;241m0.01[39m))
+[1;32m     19[0m utraj [38;5;241m=[39m rmodel[38;5;241m.[39mget_traj()
+[0;32m---> 20[0m [43mrmodel[49m[38;5;241;43m.[39;49m[43mfit[49m[43m([49m[43mtimesteps[49m[43m)[49m
+[1;32m     21[0m regressed_traj [38;5;241m=[39m rmodel[38;5;241m.[39mget_traj()
+[1;32m     22[0m np[38;5;241m.[39msave([38;5;124m"[39m[38;5;124mepidemiology_files/ls_biased_traj[39m[38;5;124m"[39m, regressed_traj)
 
-[0;31mModuleNotFoundError[0m: No module named 'seaborn'
-ModuleNotFoundError: No module named 'seaborn'
+File [0;32m/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/maxentep/metapop_model.py:224[0m, in [0;36mTrainableMetaModel.fit[0;34m(self, steps, **kwargs)[0m
+[1;32m    223[0m [38;5;28;01mdef[39;00m [38;5;21mfit[39m([38;5;28mself[39m, steps[38;5;241m=[39m[38;5;241m100[39m, [38;5;241m*[39m[38;5;241m*[39mkwargs):
+[0;32m--> 224[0m     [38;5;28;43msuper[39;49m[43m([49m[43mTrainableMetaModel[49m[43m,[49m[43m [49m[38;5;28;43mself[39;49m[43m)[49m[38;5;241;43m.[39;49m[43mfit[49m[43m([49m
+[1;32m    225[0m [43m        [49m[43msteps[49m[43m [49m[38;5;241;43m*[39;49m[43m [49m[43m[[49m[38;5;241;43m0.[39;49m[43m][49m[43m,[49m[43m [49m[43msteps[49m[43m [49m[38;5;241;43m*[39;49m[43m [49m[43m[[49m[38;5;241;43m0.[39;49m[43m][49m[43m,[49m[43m [49m[43mbatch_size[49m[38;5;241;43m=[39;49m[38;5;241;43m1[39;49m[43m,[49m[43m [49m[38;5;241;43m*[39;49m[38;5;241;43m*[39;49m[43mkwargs[49m[43m)[49m
+
+File [0;32m/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/utils/traceback_utils.py:67[0m, in [0;36mfilter_traceback.<locals>.error_handler[0;34m(*args, **kwargs)[0m
+[1;32m     65[0m [38;5;28;01mexcept[39;00m [38;5;167;01mException[39;00m [38;5;28;01mas[39;00m e:  [38;5;66;03m# pylint: disable=broad-except[39;00m
+[1;32m     66[0m   filtered_tb [38;5;241m=[39m _process_traceback_frames(e[38;5;241m.[39m__traceback__)
+[0;32m---> 67[0m   [38;5;28;01mraise[39;00m e[38;5;241m.[39mwith_traceback(filtered_tb) [38;5;28;01mfrom[39;00m [38;5;28mNone[39m
+[1;32m     68[0m [38;5;28;01mfinally[39;00m:
+[1;32m     69[0m   [38;5;28;01mdel[39;00m filtered_tb
+
+File [0;32m/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tensorflow/python/framework/func_graph.py:1147[0m, in [0;36mfunc_graph_from_py_func.<locals>.autograph_handler[0;34m(*args, **kwargs)[0m
+[1;32m   1145[0m [38;5;28;01mexcept[39;00m [38;5;167;01mException[39;00m [38;5;28;01mas[39;00m e:  [38;5;66;03m# pylint:disable=broad-except[39;00m
+[1;32m   1146[0m   [38;5;28;01mif[39;00m [38;5;28mhasattr[39m(e, [38;5;124m"[39m[38;5;124mag_error_metadata[39m[38;5;124m"[39m):
+[0;32m-> 1147[0m     [38;5;28;01mraise[39;00m e[38;5;241m.[39mag_error_metadata[38;5;241m.[39mto_exception(e)
+[1;32m   1148[0m   [38;5;28;01melse[39;00m:
+[1;32m   1149[0m     [38;5;28;01mraise[39;00m
+
+[0;31mValueError[0m: in user code:
+
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 1021, in train_function  *
+        return step_function(self, iterator)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 1010, in step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 1000, in run_step  **
+        outputs = model.train_step(data)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 860, in train_step
+        loss = self.compute_loss(x, y, y_pred, sample_weight)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 918, in compute_loss
+        return self.compiled_loss(
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/compile_utils.py", line 201, in __call__
+        loss_value = loss_obj(y_t, y_p, sample_weight=sw)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py", line 141, in __call__
+        losses = call_fn(y_true, y_pred)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py", line 245, in call  **
+        return ag_fn(y_true, y_pred, **self._fn_kwargs)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py", line 1457, in mean_absolute_error
+        return backend.mean(tf.abs(y_pred - y_true), axis=-1)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/backend.py", line 2667, in mean
+        return tf.reduce_mean(x, axis, keepdims)
+
+    ValueError: Invalid reduction dimension -1 for input with 0 dimensions. for '{{node mean_absolute_error/Mean}} = Mean[T=DT_FLOAT, Tidx=DT_INT32, keep_dims=false](mean_absolute_error/Abs, mean_absolute_error/Mean/reduction_indices)' with input shapes: [], [] and with computed input tensors: input[1] = <-1>.
+
+ValueError: in user code:
+
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 1021, in train_function  *
+        return step_function(self, iterator)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 1010, in step_function  **
+        outputs = model.distribute_strategy.run(run_step, args=(data,))
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 1000, in run_step  **
+        outputs = model.train_step(data)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 860, in train_step
+        loss = self.compute_loss(x, y, y_pred, sample_weight)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py", line 918, in compute_loss
+        return self.compiled_loss(
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/compile_utils.py", line 201, in __call__
+        loss_value = loss_obj(y_t, y_p, sample_weight=sw)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py", line 141, in __call__
+        losses = call_fn(y_true, y_pred)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py", line 245, in call  **
+        return ag_fn(y_true, y_pred, **self._fn_kwargs)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py", line 1457, in mean_absolute_error
+        return backend.mean(tf.abs(y_pred - y_true), axis=-1)
+    File "/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/backend.py", line 2667, in mean
+        return tf.reduce_mean(x, axis, keepdims)
+
+    ValueError: Invalid reduction dimension -1 for input with 0 dimensions. for '{{node mean_absolute_error/Mean}} = Mean[T=DT_FLOAT, Tidx=DT_INT32, keep_dims=false](mean_absolute_error/Abs, mean_absolute_error/Mean/reduction_indices)' with input shapes: [], [] and with computed input tensors: input[1] = <-1>.
+
 

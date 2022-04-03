@@ -22,6 +22,8 @@
         <script>let toggleOpenOnPrint = 'true';</script>
         <script src="_static/togglebutton.js"></script>
         <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+        <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.1/dist/embed-amd.js"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
@@ -99,7 +101,7 @@
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Permalink to this headline"></a></h2>
-<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install maxent
+<div class="highlight-sh notranslate"><div class="highlight"><pre><span></span>pip install maxent-infer
 </pre></div>
 </div>
 </section>
@@ -189,11 +191,11 @@ For example, here is the most likely outcome (mode)</p>
 </section>
 <section id="further-examples">
 <h2>Further Examples<a class="headerlink" href="#further-examples" title="Permalink to this headline"></a></h2>
-<p>You can find the examples used in the manuscript [here]<a class="reference external" href="https://ur-whitelab.github.io/maxent/toc.html">(https://ur-whitee)</a>. These examples use the latest package versions, so the figures will not exactly match those in the manuscript. If you would like to reproduce the manuscript exactly, install the packages in <code class="docutils literal notranslate"><span class="pre">paper/requirements.txt</span></code> and execute the notebookes in <code class="docutils literal notranslate"><span class="pre">paper</span></code>.</p>
+<p>You can find the examples used in the manuscript, including comparisons with competing methods: <a class="reference external" href="https://ur-whitelab.github.io/maxent/toc.html">here</a>. These examples use the latest package versions, so the figures will not exactly match those in the manuscript. If you would like to reproduce the manuscript exactly, install the packages in <code class="docutils literal notranslate"><span class="pre">paper/requirements.txt</span></code> and execute the notebooks in <code class="docutils literal notranslate"><span class="pre">paper</span></code> (this is the output from the <code class="docutils literal notranslate"><span class="pre">paper</span></code> workflow above).</p>
 </section>
 <section id="citation">
 <h2>Citation<a class="headerlink" href="#citation" title="Permalink to this headline"></a></h2>
-<p><a class="reference external" href="https://arxiv.org/abs/2104.09668">Preprint</a>. Citation:</p>
+<p><a class="reference external" href="https://arxiv.org/abs/2104.09668">See preprint</a> and the citation:</p>
 <div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@article</span><span class="p">{</span><span class="nl">barrett2022simulation</span><span class="p">,</span><span class="w"></span>
 <span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{Simulation-Based Inference with Approximately Correct Parameters via Maximum Entropy}</span><span class="p">,</span><span class="w"></span>
 <span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Barrett, Rainier and Ansari, Mehrad and Ghoshal, Gourab and White, Andrew D}</span><span class="p">,</span><span class="w"></span>
