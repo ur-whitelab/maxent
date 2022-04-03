@@ -11,8 +11,6 @@ Maximum entropy reweighting is a straightforward black box method that can be ap
 
 ## Installation
 
-The package uses Keras (Tensorflow). To install:
-
 ```sh
 pip install maxent
 ```

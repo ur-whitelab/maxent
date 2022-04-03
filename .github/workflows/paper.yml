@@ -28,7 +28,7 @@ jobs:
         pip install .
     - name: Install paper depends
       run: |
-        pip install --use-deprecated=legacy-resolver -r paper/requirements.txt
+        pip install --upgrade --use-deprecated=legacy-resolver -r paper/requirements.txt
     - name: Run Gaussian System
       run: jupyter nbconvert --ExecutePreprocessor.timeout=-1 --execute "paper/gaussian.ipynb" --to notebook --output-dir='temp' --clear-output
     - name: Run Epidemiology System
