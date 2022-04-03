@@ -8,11 +8,8 @@ from setuptools import setup
 exec(open("maxent/version.py").read())
 
 
-def read(filename):
-    filename = os.path.join(os.path.dirname(__file__), filename)
-    text_type = type("")
-    with io.open(filename, mode="r", encoding="utf-8") as fd:
-        return re.sub(text_type(r":[a-z]+:`~?(.*?)`"), text_type(r"``\1``"), fd.read())
+with open("README.md", "r", encoding="utf-8") as fh:
+    long_description = fh.read()
 
 
 setup(
@@ -23,7 +20,8 @@ setup(
     author="Mehrad Ansari <Mehrad.ansari@rochester.edu>, Rainier Barrett <rainier.barrett@gmail.com>, Andrew White <andrew.white@rochester.edu>",
     author_email="andrew.white@rochester.edu",
     description="Maximum entropy inference Keras implementation",
-    long_description=read("README.md"),
+    long_description=long_description,
+    long_description_content_type="text/markdown",
     packages=find_packages(exclude=("tests",)),
     install_requires=["numpy", "tensorflow", "tensorflow_probability"],
     classifiers=[
