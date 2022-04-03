@@ -1,0 +1,9 @@
+sphinx
+myst-parser~=0.15.2
+sphinx-rtd-theme
+sphinx_autodoc_typehints
+myst-nb
+sbi
+pynmrstar
+git+https://github.com/ur-whitelab/py0.git@nature_compsci
+pyabc
