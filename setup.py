@@ -17,7 +17,7 @@ def read(filename):
 
 setup(
     name="maxent",
-    version="1.0",
+    version=__version__,
     url="https://github.com/ur-whitelab/maxent",
     license="GPL v2",
     author="Mehrad Ansari <Mehrad.ansari@rochester.edu>, Rainier Barrett <rainier.barrett@gmail.com>, Andrew White <andrew.white@rochester.edu>",
