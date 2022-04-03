@@ -13,7 +13,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 
 setup(
-    name="maxent",
+    name="maxent-infer",
     version=__version__,
     url="https://github.com/ur-whitelab/maxent",
     license="GPL v2",

@@ -1,4 +1,4 @@
-# Maximum Entropy Simulation Based Inference
+# Maximum Entropy Inference
 
 
 ![tests](https://github.com/ur-whitelab/maxent/actions/workflows/test.yml/badge.svg) ![paper](https://github.com/ur-whitelab/maxent/actions/workflows/paper.yml/badge.svg) [![docs](https://github.com/ur-whitelab/maxent/actions/workflows/docs.yml/badge.svg)](https://ur-whitelab.github.io/maxent/)
@@ -12,7 +12,7 @@ Maximum entropy reweighting is a straightforward black box method that can be ap
 ## Installation
 
 ```sh
-pip install maxent
+pip install maxent-infer
 ```
 
 ## Quick Start
