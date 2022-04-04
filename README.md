@@ -35,7 +35,7 @@ import maxent
 data = pd.read_csv('data.csv')
 ```
 
-Perhaps we have a single observation we would like to match. We can agree with an observation by specifying to things: a function to compute the observation from outcomes of our prior/simulator and the target value. As a simple example, let's say our observation is just the 3rd column in a row that came from one outcome:
+Perhaps we have a single observation we would like to match. We will reweight our rows (outcomes) to agree with the single observation. This is under-determined, but there is one solution because of the maximum entropy condition. To fit this one observation, we specify two things: a function to compute the observation from outcomes of our prior/simulator and the value of the observation (called `target`). Let's say our observation is just the 3rd column in a row that came from one outcome:
 
 ```python
 
@@ -45,7 +45,7 @@ def observe(single_row):
 r = maxent.Restraint(observe, target=1.5)
 ```
 
-We could instead of used a mean over the row or any other function. Do you have uncertainty with your observation? No problem. Here we specify our uncertainty is Laplace distributed with a variance of 2 (Laplace scale parameter 1):
+Do you have uncertainty with your observation? No problem. Here we specify our uncertainty as a Laplace distributed with a variance of 2 (Laplace scale parameter 1):
 
 ```python
 r = maxent.Restraint(observe, target=1.5, prior=maxent.Laplace(1))
