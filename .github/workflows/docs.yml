@@ -32,6 +32,7 @@ jobs:
     - name: Sphinx build
       run: |
         cp -R paper docs/source
+        sed -i 's/USE_CACHED_RESULTS = False/USE_CACHED_RESULTS = True/g' docs/source/epidemiology.ipynb
         cd docs && make html
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
