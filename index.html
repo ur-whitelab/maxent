@@ -124,7 +124,7 @@ regress these outcomes to data.</p>
 <span class="n">data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Perhaps we have a single observation we would like to match. We can agree with an observation by specifying to things: a function to compute the observation from outcomes of our prior/simulator and the target value. As a simple example, let’s say our observation is just the 3rd column in a row that came from one outcome:</p>
+<p>Perhaps we have a single observation we would like to match. We will reweight our rows (outcomes) to agree with the single observation. This is under-determined, but there is one solution because of the maximum entropy condition. To fit this one observation, we specify two things: a function to compute the observation from outcomes of our prior/simulator and the value of the observation (called <code class="docutils literal notranslate"><span class="pre">target</span></code>). Let’s say our observation is just the 3rd column in a row that came from one outcome:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span>
 <span class="k">def</span> <span class="nf">observe</span><span class="p">(</span><span class="n">single_row</span><span class="p">):</span>
   <span class="k">return</span> <span class="n">single_row</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
@@ -132,7 +132,7 @@ regress these outcomes to data.</p>
 <span class="n">r</span> <span class="o">=</span> <span class="n">maxent</span><span class="o">.</span><span class="n">Restraint</span><span class="p">(</span><span class="n">observe</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mf">1.5</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>We could instead of used a mean over the row or any other function. Do you have uncertainty with your observation? No problem. Here we specify our uncertainty is Laplace distributed with a variance of 2 (Laplace scale parameter 1):</p>
+<p>Do you have uncertainty with your observation? No problem. Here we specify our uncertainty as a Laplace distributed with a variance of 2 (Laplace scale parameter 1):</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">r</span> <span class="o">=</span> <span class="n">maxent</span><span class="o">.</span><span class="n">Restraint</span><span class="p">(</span><span class="n">observe</span><span class="p">,</span> <span class="n">target</span><span class="o">=</span><span class="mf">1.5</span><span class="p">,</span> <span class="n">prior</span><span class="o">=</span><span class="n">maxent</span><span class="o">.</span><span class="n">Laplace</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
 </pre></div>
 </div>

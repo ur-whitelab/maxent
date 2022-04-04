@@ -21,7 +21,7 @@
    "outputs": [],
    "source": [
     "# to speed-up execution, mark this as True\n",
-    "USE_CACHED_RESULTS = False\n",
+    "USE_CACHED_RESULTS = True\n",
     "# cross-fold crashes Github CI\n",
     "USE_CACHED_CV5_RESULTS = True"
    ]
@@ -969,7 +969,7 @@
  ],
  "metadata": {
   "kernelspec": {
-   "display_name": "Python 3",
+   "display_name": "Python 3 (ipykernel)",
    "language": "python",
    "name": "python3"
   },

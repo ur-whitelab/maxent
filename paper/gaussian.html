@@ -123,12 +123,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-04-04 00:00:42.922172: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcudart.so.11.0&#39;; dlerror: libcudart.so.11.0: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.8.12/x64/lib
-2022-04-04 00:00:42.922204: I tensorflow/stream_executor/cuda/cudart_stub.cc:29] Ignore above cudart dlerror if you do not have a GPU set up on your machine.
-</pre></div>
-</div>
-</div>
 </div>
 <section id="set-up-prior-distribution">
 <h2>Set-up Prior Distribution<a class="headerlink" href="#set-up-prior-distribution" title="Permalink to this headline"></a></h2>
@@ -147,14 +141,6 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2022-04-04 00:00:45.138722: W tensorflow/stream_executor/platform/default/dso_loader.cc:64] Could not load dynamic library &#39;libcuda.so.1&#39;; dlerror: libcuda.so.1: cannot open shared object file: No such file or directory; LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.8.12/x64/lib
-2022-04-04 00:00:45.138757: W tensorflow/stream_executor/cuda/cuda_driver.cc:269] failed call to cuInit: UNKNOWN ERROR (303)
-2022-04-04 00:00:45.138781: I tensorflow/stream_executor/cuda/cuda_diagnostics.cc:156] kernel driver does not appear to be running on this host (fv-az139-451): /proc/driver/nvidia/version does not exist
-2022-04-04 00:00:45.139015: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network Library (oneDNN) to use the following CPU instructions in performance-critical operations:  AVX2 AVX512F FMA
-To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
-2022-04-04 00:00:45.237921: W tensorflow/python/util/util.cc:368] Sets are not currently considered sequences, but this may change in the future, so consider avoiding using them.
-</pre></div>
-</div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;tfp.distributions._TensorCoercible &#39;tensor_coercible&#39; batch_shape=[1] event_shape=[] dtype=float32&gt;
 </pre></div>
 </div>
@@ -193,7 +179,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7fa0941d9a60&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7f5f34ef4b50&gt;
 </pre></div>
 </div>
 <img alt="../_images/gaussian_6_1.png" src="../_images/gaussian_6_1.png" />
@@ -229,7 +215,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7fa008a84f40&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.lines.Line2D at 0x7f5f348dc910&gt;
 </pre></div>
 </div>
 <img alt="../_images/gaussian_9_1.png" src="../_images/gaussian_9_1.png" />
@@ -351,13 +337,13 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2085/2902584349.py:9: RuntimeWarning: divide by zero encountered in log
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2244/2902584349.py:9: RuntimeWarning: divide by zero encountered in log
   -np.nansum((x[1] - x[0]) * ppdf.pdf(x) * np.log(ppdf.pdf(x))),
-/tmp/ipykernel_2085/2902584349.py:9: RuntimeWarning: invalid value encountered in multiply
+/tmp/ipykernel_2244/2902584349.py:9: RuntimeWarning: invalid value encountered in multiply
   -np.nansum((x[1] - x[0]) * ppdf.pdf(x) * np.log(ppdf.pdf(x))),
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 [9.911016359048261, 0.30425735781630875]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0 [9.911016359048261, 0.3042573578163087]
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1 [9.631094028403169, 0.9771244951498036]
@@ -366,7 +352,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2 [8.674678518807875, 1.5288348252198853]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3 [6.526128590020791, 1.9553957761896448]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3 [6.52612859002079, 1.9553957761896448]
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>4 [3.7846027053356988, 2.244649224089299]
@@ -381,10 +367,10 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7 [1.0843316455584768, 2.423766089350074]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8 [1.022553823634384, 2.4271149096040285]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8 [1.022553823634384, 2.427114909604028]
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9 [1.0052135486225569, 2.4280502822459478]
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>9 [1.005213548622557, 2.428050282245948]
 </pre></div>
 </div>
 </div>
@@ -415,7 +401,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-2.8259637 2.4038350683924916
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.9008719 2.418447778248499
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-1.9008719 2.4184477782484994
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>-0.9553167 2.4243713533689775
@@ -424,16 +410,16 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0.02761423 2.4268825734152277
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2085/1084787031.py:9: RuntimeWarning: divide by zero encountered in log
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>/tmp/ipykernel_2244/1084787031.py:9: RuntimeWarning: divide by zero encountered in log
   d = -np.nansum((x[1] - x[0]) * ppdf.pdf(x) * np.log(ppdf.pdf(x)))
-/tmp/ipykernel_2085/1084787031.py:9: RuntimeWarning: invalid value encountered in multiply
+/tmp/ipykernel_2244/1084787031.py:9: RuntimeWarning: invalid value encountered in multiply
   d = -np.nansum((x[1] - x[0]) * ppdf.pdf(x) * np.log(ppdf.pdf(x)))
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.0098245 2.428427371215414
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.9941295 2.429549255552888
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>1.9941295 2.4295492555528875
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>2.9686313 2.430669696554571
@@ -451,7 +437,7 @@ To enable them in other operations, rebuild TensorFlow with the appropriate comp
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>6.846133 2.5148259781116122
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.641946 2.562180831046047
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>7.641946 2.5621808310460468
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>8.217658 2.597753775412778

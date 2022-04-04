@@ -95,7 +95,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># to speed-up execution, mark this as True</span>
-<span class="n">USE_CACHED_RESULTS</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">USE_CACHED_RESULTS</span> <span class="o">=</span> <span class="kc">True</span>
 <span class="c1"># cross-fold crashes Github CI</span>
 <span class="n">USE_CACHED_CV5_RESULTS</span> <span class="o">=</span> <span class="kc">True</span>
 </pre></div>
@@ -227,8 +227,8 @@
 Total number of restraints:  5
 Compartments restrained:  [&#39;I&#39;]
 Restraints are set on this time range: [0, 100]
-59 0.11300827 0.10784732558783142
-45 0.13207553 0.1526054583677545
+59 0.11300826 0.10784731813725082
+45 0.13207552 0.1526054434665933
 31 0.12169183 0.12889400901430076
 80 0.06942835 0.1421420223992924
 17 0.08018874 0.11824062257689161
@@ -428,62 +428,6 @@ Restraints are set on this time range: [0, 100]
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="nn">Input In [11],</span> in <span class="ni">&lt;cell line: 1&gt;</span><span class="nt">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span> <span class="n">rmodel</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Nadam</span><span class="p">(</span><span class="mf">0.01</span><span class="p">))</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span> <span class="n">utraj</span> <span class="o">=</span> <span class="n">rmodel</span><span class="o">.</span><span class="n">get_traj</span><span class="p">()</span>
-<span class="ne">---&gt; </span><span class="mi">20</span> <span class="n">rmodel</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">timesteps</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">regressed_traj</span> <span class="o">=</span> <span class="n">rmodel</span><span class="o">.</span><span class="n">get_traj</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;epidemiology_files/ls_biased_traj&quot;</span><span class="p">,</span> <span class="n">regressed_traj</span><span class="p">)</span>
-
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/maxentep/metapop_model.py:224,</span> in <span class="ni">TrainableMetaModel.fit</span><span class="nt">(self, steps, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">223</span> <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">steps</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="ne">--&gt; </span><span class="mi">224</span>     <span class="nb">super</span><span class="p">(</span><span class="n">TrainableMetaModel</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">225</span>         <span class="n">steps</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="n">steps</span> <span class="o">*</span> <span class="p">[</span><span class="mf">0.</span><span class="p">],</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/utils/traceback_utils.py:67,</span> in <span class="ni">filter_traceback.&lt;locals&gt;.error_handler</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">65</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pylint: disable=broad-except</span>
-<span class="g g-Whitespace">     </span><span class="mi">66</span>   <span class="n">filtered_tb</span> <span class="o">=</span> <span class="n">_process_traceback_frames</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">__traceback__</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">67</span>   <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="n">with_traceback</span><span class="p">(</span><span class="n">filtered_tb</span><span class="p">)</span> <span class="kn">from</span> <span class="bp">None</span>
-<span class="g g-Whitespace">     </span><span class="mi">68</span> <span class="k">finally</span><span class="p">:</span>
-<span class="g g-Whitespace">     </span><span class="mi">69</span>   <span class="k">del</span> <span class="n">filtered_tb</span>
-
-<span class="nn">File /opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/tensorflow/python/framework/func_graph.py:1147,</span> in <span class="ni">func_graph_from_py_func.&lt;locals&gt;.autograph_handler</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1145</span> <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>  <span class="c1"># pylint:disable=broad-except</span>
-<span class="g g-Whitespace">   </span><span class="mi">1146</span>   <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="s2">&quot;ag_error_metadata&quot;</span><span class="p">):</span>
-<span class="ne">-&gt; </span><span class="mi">1147</span>     <span class="k">raise</span> <span class="n">e</span><span class="o">.</span><span class="n">ag_error_metadata</span><span class="o">.</span><span class="n">to_exception</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1148</span>   <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">   </span><span class="mi">1149</span>     <span class="k">raise</span>
-
-<span class="ne">ValueError</span>: in user code:
-
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1021</span><span class="p">,</span> <span class="ow">in</span> <span class="n">train_function</span>  <span class="o">*</span>
-        <span class="k">return</span> <span class="n">step_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">iterator</span><span class="p">)</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1010</span><span class="p">,</span> <span class="ow">in</span> <span class="n">step_function</span>  <span class="o">**</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">distribute_strategy</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">run_step</span><span class="p">,</span> <span class="n">args</span><span class="o">=</span><span class="p">(</span><span class="n">data</span><span class="p">,))</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1000</span><span class="p">,</span> <span class="ow">in</span> <span class="n">run_step</span>  <span class="o">**</span>
-        <span class="n">outputs</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">train_step</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">860</span><span class="p">,</span> <span class="ow">in</span> <span class="n">train_step</span>
-        <span class="n">loss</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">compute_loss</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="n">sample_weight</span><span class="p">)</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/training.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">918</span><span class="p">,</span> <span class="ow">in</span> <span class="n">compute_loss</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">compiled_loss</span><span class="p">(</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/engine/compile_utils.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">201</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__call__</span>
-        <span class="n">loss_value</span> <span class="o">=</span> <span class="n">loss_obj</span><span class="p">(</span><span class="n">y_t</span><span class="p">,</span> <span class="n">y_p</span><span class="p">,</span> <span class="n">sample_weight</span><span class="o">=</span><span class="n">sw</span><span class="p">)</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">141</span><span class="p">,</span> <span class="ow">in</span> <span class="fm">__call__</span>
-        <span class="n">losses</span> <span class="o">=</span> <span class="n">call_fn</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">245</span><span class="p">,</span> <span class="ow">in</span> <span class="n">call</span>  <span class="o">**</span>
-        <span class="k">return</span> <span class="n">ag_fn</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_fn_kwargs</span><span class="p">)</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/losses.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">1457</span><span class="p">,</span> <span class="ow">in</span> <span class="n">mean_absolute_error</span>
-        <span class="k">return</span> <span class="n">backend</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">tf</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y_pred</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">),</span> <span class="n">axis</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-    <span class="n">File</span> <span class="s2">&quot;/opt/hostedtoolcache/Python/3.8.12/x64/lib/python3.8/site-packages/keras/backend.py&quot;</span><span class="p">,</span> <span class="n">line</span> <span class="mi">2667</span><span class="p">,</span> <span class="ow">in</span> <span class="n">mean</span>
-        <span class="k">return</span> <span class="n">tf</span><span class="o">.</span><span class="n">reduce_mean</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="p">,</span> <span class="n">keepdims</span><span class="p">)</span>
-
-    <span class="ne">ValueError</span><span class="p">:</span> <span class="n">Invalid</span> <span class="n">reduction</span> <span class="n">dimension</span> <span class="o">-</span><span class="mi">1</span> <span class="k">for</span> <span class="nb">input</span> <span class="k">with</span> <span class="mi">0</span> <span class="n">dimensions</span><span class="o">.</span> <span class="k">for</span> <span class="s1">&#39;{{node mean_absolute_error/Mean}} = Mean[T=DT_FLOAT, Tidx=DT_INT32, keep_dims=false](mean_absolute_error/Abs, mean_absolute_error/Mean/reduction_indices)&#39;</span> <span class="k">with</span> <span class="nb">input</span> <span class="n">shapes</span><span class="p">:</span> <span class="p">[],</span> <span class="p">[]</span> <span class="ow">and</span> <span class="k">with</span> <span class="n">computed</span> <span class="nb">input</span> <span class="n">tensors</span><span class="p">:</span> <span class="nb">input</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;-</span><span class="mi">1</span><span class="o">&gt;.</span>
-</pre></div>
-</div>
-</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -530,6 +474,9 @@ Restraints are set on this time range: [0, 100]
 <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/epidemiology_16_0.png" src="../_images/epidemiology_16_0.png" />
 </div>
 </div>
 </section>
@@ -734,6 +681,13 @@ Restraints are set on this time range: [0, 100]
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;MaxEnt std : &quot;</span><span class="p">,</span> <span class="n">std_MaxEnt</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Least-squares std : &quot;</span><span class="p">,</span> <span class="n">std_LS</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ABC std : &quot;</span><span class="p">,</span> <span class="n">std_abc</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MaxEnt std :  [0.0, 0.01577120570669534, 0.018983195798761756]
+Least-squares std :  [0.0263919479418941, 0.06591773929089012, 0.04426152618493399]
+ABC std :  [0.0, 0.01017054388373537, 0.014390072825594354]
 </pre></div>
 </div>
 </div>
@@ -956,6 +910,12 @@ Restraints are set on this time range: [0, 100]
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(250, 3, 5)
+</pre></div>
+</div>
+<img alt="../_images/epidemiology_23_1.png" src="../_images/epidemiology_23_1.png" />
+</div>
 </div>
 </section>
 <section id="variational-inference">
@@ -986,6 +946,14 @@ Restraints are set on this time range: [0, 100]
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:tensorflow:Gradients do not exist for variables [&#39;value:0&#39;, &#39;value:0&#39;, &#39;value:0&#39;, &#39;rho-dist-norm-hypers/kernel:0&#39;, &#39;beta/kernel:0&#39;] when minimizing the loss. If you&#39;re using `model.compile()`, did you forget to provide a `loss`argument?
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING:tensorflow:Gradients do not exist for variables [&#39;value:0&#39;, &#39;value:0&#39;, &#39;value:0&#39;, &#39;rho-dist-norm-hypers/kernel:0&#39;, &#39;beta/kernel:0&#39;] when minimizing the loss. If you&#39;re using `model.compile()`, did you forget to provide a `loss`argument?
+</pre></div>
+</div>
+</div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1012,6 +980,22 @@ Restraints are set on this time range: [0, 100]
 <span class="n">ax</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;neg log-likelihood&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="nn">Input In [21],</span> in <span class="ni">&lt;cell line: 2&gt;</span><span class="nt">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">dpi</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">me_history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;MaxEnt&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">hme_history</span><span class="o">.</span><span class="n">history</span><span class="p">[</span><span class="s2">&quot;loss&quot;</span><span class="p">],</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Hyper-MaxEnt&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">ax</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="s2">&quot;loss (number of patches restrained: </span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">restrained_patches</span><span class="p">))</span>
+<span class="g g-Whitespace">      </span><span class="mi">6</span> <span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;me_history&#39; is not defined
+</pre></div>
+</div>
+<img alt="../_images/epidemiology_28_1.png" src="../_images/epidemiology_28_1.png" />
 </div>
 </div>
 <div class="cell docutils container">
