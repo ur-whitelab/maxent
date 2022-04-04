@@ -4,6 +4,11 @@ name: docs
 on:
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+env:
+  TF_CPP_MIN_LOG_LEVEL: 3
 
 jobs:
   docs:
@@ -27,9 +32,11 @@ jobs:
     - name: Sphinx build
       run: |
         cp -R paper docs/source
+        sed -i 's/USE_CACHED_RESULTS = False/USE_CACHED_RESULTS = True/g' docs/source/paper/epidemiology.ipynb
         cd docs && make html
     - name: Deploy
       uses: peaceiris/actions-gh-pages@v3
+      if: github.ref == 'refs/heads/main'
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: docs/build/html
