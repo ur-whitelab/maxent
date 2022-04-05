@@ -412,7 +412,7 @@ Restraints are set on this time range: [0, 100]
     <span class="k">def</span> <span class="nf">agreement</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">rs</span><span class="o">=</span><span class="n">restraints</span><span class="p">):</span>
         <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">:</span>
-            <span class="n">s</span> <span class="o">+=</span> <span class="n">r</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+            <span class="n">s</span> <span class="o">+=</span> <span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)[</span><span class="n">tf</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">s</span>
 
     <span class="n">rmodel</span> <span class="o">=</span> <span class="n">py0</span><span class="o">.</span><span class="n">TrainableMetaModel</span><span class="p">(</span>
@@ -420,7 +420,7 @@ Restraints are set on this time range: [0, 100]
     <span class="p">)</span>
     <span class="n">rmodel</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">tf</span><span class="o">.</span><span class="n">keras</span><span class="o">.</span><span class="n">optimizers</span><span class="o">.</span><span class="n">Nadam</span><span class="p">(</span><span class="mf">0.01</span><span class="p">))</span>
     <span class="n">utraj</span> <span class="o">=</span> <span class="n">rmodel</span><span class="o">.</span><span class="n">get_traj</span><span class="p">()</span>
-    <span class="n">rmodel</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">timesteps</span><span class="p">)</span>
+    <span class="n">rmodel</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">steps</span><span class="o">=</span><span class="n">timesteps</span><span class="p">)</span>
     <span class="n">regressed_traj</span> <span class="o">=</span> <span class="n">rmodel</span><span class="o">.</span><span class="n">get_traj</span><span class="p">()</span>
     <span class="n">np</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;epidemiology_files/ls_biased_traj&quot;</span><span class="p">,</span> <span class="n">regressed_traj</span><span class="p">)</span>
 <span class="k">else</span><span class="p">:</span>
@@ -574,7 +574,7 @@ Restraints are set on this time range: [0, 100]
         <span class="k">def</span> <span class="nf">new_agreement</span><span class="p">(</span><span class="n">traj</span><span class="p">,</span> <span class="n">rs</span><span class="o">=</span><span class="n">sampled_restraints</span><span class="p">):</span>
             <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span>
             <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">rs</span><span class="p">:</span>
-                <span class="n">s</span> <span class="o">+=</span> <span class="n">r</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span>
+                <span class="n">s</span> <span class="o">+=</span> <span class="p">(</span><span class="n">r</span><span class="p">(</span><span class="n">traj</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)[</span><span class="n">tf</span><span class="o">.</span><span class="n">newaxis</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span>
             <span class="k">return</span> <span class="n">s</span>
 
         <span class="n">rmodel_sampled</span> <span class="o">=</span> <span class="n">py0</span><span class="o">.</span><span class="n">TrainableMetaModel</span><span class="p">(</span>
