@@ -21,7 +21,7 @@
    "outputs": [],
    "source": [
     "# to speed-up execution, mark this as True\n",
-    "USE_CACHED_RESULTS = True\n",
+    "USE_CACHED_RESULTS = False\n",
     "# cross-fold crashes Github CI\n",
     "USE_CACHED_CV5_RESULTS = True"
    ]
