@@ -129,7 +129,7 @@ You can find the examples used in the manuscript, including comparisons with com
 
 ## Citation
 
-[See preprint](https://arxiv.org/abs/2104.09668) and the citation:
+[See paper](https://iopscience.iop.org/article/10.1088/2632-2153/ac6286/meta) and the citation:
 
 ```bibtex
 @article{barrett2022simulation,
